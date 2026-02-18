@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sourabh Malage | Performance Marketing Specialist</title>
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  line-height: 1.6;
+  color: #333;
+}
+
+.container {
+  width: 90%;
+  max-width: 1000px;
+  margin: auto;
+  padding: 40px 0;
+}
+
+header {
+  background: #111;
+  color: white;
+  text-align: center;
+  padding: 60px 0;
+}
+
+.btn {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 10px 20px;
+  background: #0073e6;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background: #f4f4f4;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+footer {
+  background: #111;
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+</style>
+
+</head>
+
+<body>
+
+<header>
+  <div class="container">
+    <h1>Sourabh Malage</h1>
+    <p>Performance Marketing Specialist | Google Ads | Meta Ads | SEO</p>
+    <a href="#contact" class="btn">Contact Me</a>
+  </div>
+</header>
+
+<section class="about container">
+  <h2>About Me</h2>
+  <p>
+    Performance Marketing professional with experience in Google Ads, Meta Ads, SEO, and conversion optimization across e-commerce and lead generation projects. Skilled in campaign optimization, audience targeting, tracking implementation, and performance-driven growth strategies.
+  </p>
+</section>
+
+<section class="skills container">
+  <h2>Core Expertise</h2>
+  <div class="grid">
+    <div>
+      <h3>Performance Marketing</h3>
+      <p>Google Ads, Meta Ads, PPC Optimization, Retargeting, A/B Testing, ROAS Optimization</p>
+    </div>
+    <div>
+      <h3>SEO</h3>
+      <p>Technical SEO, On-Page SEO, Keyword Research, Website Audit</p>
+    </div>
+    <div>
+      <h3>Analytics & Tracking</h3>
+      <p>GA4, Google Tag Manager, Conversion Tracking, Pixel Implementation</p>
+    </div>
+    <div>
+      <h3>Conversion & Automation</h3>
+      <p>Landing Page Optimization, WhatsApp Business API, Lead Funnels</p>
+    </div>
+  </div>
+</section>
+
+<section class="projects container">
+  <h2>Selected Projects</h2>
+
+  <div class="card">
+    <h3>SEO Growth — Deeporion</h3>
+    <p>Improved organic visibility through technical SEO audit, on-page optimization, and keyword strategy. Organic traffic increased significantly based on SEMrush estimates.</p>
+  </div>
+
+  <div class="card">
+    <h3>Performance Ads Campaign</h3>
+    <p>Managed ₹5L+ ad budget across Google Ads and Meta Ads. Implemented targeting, retargeting, and conversion optimization strategies.</p>
+  </div>
+
+  <div class="card">
+    <h3>WhatsApp Automation & Funnel Setup</h3>
+    <p>Implemented WhatsApp Business API chatbot workflows for lead nurturing and engagement automation.</p>
+  </div>
+
+  <div class="card">
+    <h3>WordPress Website Projects</h3>
+    <p>
+      <a href="https://stockpriceguru.com/" target="_blank">stockpriceguru.com</a><br>
+      <a href="https://opulencegroup.in/" target="_blank">opulencegroup.in</a>
+    </p>
+  </div>
+
+</section>
+
+<section class="contact container" id="contact">
+  <h2>Contact</h2>
+  <p>Email: your-email@gmail.com</p>
+  <p>LinkedIn: linkedin.com/in/sourabh-malage-96921a114</p>
+</section>
+
+<footer>
+  <p>© 2025 Sourabh Malage</p>
+</footer>
+
+</body>
+</html>
