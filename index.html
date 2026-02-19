@@ -3,143 +3,1346 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sourabh Malage | Performance Marketing Specialist</title>
-
+<title>Sourabh Malage | Digital Marketing Specialist</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Nunito+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
+/* ====== RESET & ROOT ====== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --ink:     #0f0f0f;
+  --paper:   #fafaf8;
+  --warm:    #f3f0ea;
+  --accent:  #1a4d8f;
+  --accent2: #2563b0;
+  --gold:    #b8860b;
+  --muted:   #717171;
+  --border:  #e2dfd8;
+  --card:    #ffffff;
+  --shadow:  rgba(15,15,15,0.08);
+}
+
+html { scroll-behavior: smooth; }
+
 body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  line-height: 1.6;
-  color: #333;
+  font-family: 'Nunito Sans', sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  overflow-x: hidden;
+  cursor: none;
 }
 
-.container {
-  width: 90%;
-  max-width: 1000px;
-  margin: auto;
-  padding: 40px 0;
+/* ====== CUSTOM CURSOR ====== */
+.cursor {
+  position: fixed;
+  width: 10px; height: 10px;
+  background: var(--accent);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: width 0.2s, height 0.2s;
 }
-
-header {
-  background: #111;
-  color: white;
-  text-align: center;
-  padding: 60px 0;
+.cursor-ring {
+  position: fixed;
+  width: 36px; height: 36px;
+  border: 1.5px solid var(--accent);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: width 0.25s, height 0.25s, opacity 0.25s;
+  opacity: 0.5;
 }
+body:has(a:hover) .cursor-ring,
+body:has(button:hover) .cursor-ring { width: 52px; height: 52px; opacity: 1; }
 
-.btn {
-  display: inline-block;
-  margin-top: 15px;
-  padding: 10px 20px;
-  background: #0073e6;
-  color: white;
+/* ====== NAV ====== */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 60px;
+  background: rgba(250,250,248,0.9);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+nav.scrolled {
+  border-bottom-color: var(--border);
+  box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+}
+.nav-logo {
+  font-family: 'Lora', serif;
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: -0.3px;
+  color: var(--ink);
   text-decoration: none;
-  border-radius: 5px;
+}
+.nav-logo span { color: var(--accent); }
+.nav-right { display: flex; align-items: center; gap: 32px; }
+.nav-links { display: flex; gap: 32px; list-style: none; }
+.nav-links a {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
+  text-decoration: none;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--accent); }
+.nav-resume-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: var(--accent);
+  color: #fff;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  padding: 10px 20px;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.nav-resume-btn:hover { background: var(--accent2); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(26,77,143,0.3); }
+.nav-resume-btn svg { width: 14px; height: 14px; fill: currentColor; }
+
+/* ====== HERO ====== */
+header {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  background: var(--ink);
+  position: relative;
+  overflow: hidden;
+  padding-top: 80px;
+}
+header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+  background-size: 70px 70px;
+  animation: gridPan 24s linear infinite;
+}
+@keyframes gridPan {
+  0% { transform: translate(0,0); }
+  100% { transform: translate(70px,70px); }
+}
+header::after {
+  content: 'DIGITAL';
+  position: absolute;
+  bottom: -30px; right: -10px;
+  font-family: 'Lora', serif;
+  font-size: clamp(100px, 18vw, 260px);
+  font-weight: 700;
+  color: rgba(255,255,255,0.02);
+  line-height: 1;
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
 }
 
-h2 {
-  text-align: center;
-  margin-bottom: 30px;
-}
-
-.grid {
+.hero-inner {
+  position: relative;
+  z-index: 2;
+  width: 90%;
+  max-width: 1100px;
+  margin: auto;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 20px;
+  grid-template-columns: 1fr 360px;
+  gap: 80px;
+  align-items: center;
 }
 
-.card {
-  background: #f4f4f4;
-  padding: 20px;
-  border-radius: 8px;
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: rgba(255,255,255,0.5);
+  text-transform: uppercase;
+  margin-bottom: 24px;
+  animation: fadeUp 0.7s 0.1s both;
+}
+.hero-eyebrow-dot {
+  width: 6px; height: 6px;
+  background: var(--accent);
+  border-radius: 50%;
+  animation: blink 2s infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+
+.hero-name {
+  font-family: 'Lora', serif;
+  font-size: clamp(54px, 7.5vw, 104px);
+  font-weight: 700;
+  color: #fff;
+  line-height: 0.95;
+  letter-spacing: -2px;
+  margin-bottom: 24px;
+  animation: fadeUp 0.7s 0.25s both;
+}
+.hero-name .outline {
+  -webkit-text-stroke: 1.5px rgba(255,255,255,0.35);
+  color: transparent;
+  font-style: italic;
 }
 
-footer {
-  background: #111;
-  color: white;
+.hero-desc {
+  font-size: 16px;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.85;
+  max-width: 460px;
+  font-weight: 300;
+  margin-bottom: 40px;
+  animation: fadeUp 0.7s 0.4s both;
+}
+
+.hero-cta {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  animation: fadeUp 0.7s 0.55s both;
+}
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--accent);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 14px 28px;
+  transition: all 0.25s;
+}
+.btn-primary:hover { background: var(--accent2); transform: translateY(-2px); box-shadow: 0 12px 32px rgba(26,77,143,0.45); }
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid rgba(255,255,255,0.2);
+  color: rgba(255,255,255,0.65);
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 14px 28px;
+  transition: all 0.25s;
+}
+.btn-ghost:hover { border-color: var(--accent); color: #fff; background: rgba(26,77,143,0.2); }
+
+/* HERO STATS */
+.hero-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.09);
+  backdrop-filter: blur(10px);
+  padding: 36px 32px;
+  animation: fadeUp 0.7s 0.6s both;
+}
+.hero-card-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: rgba(255,255,255,0.3);
+  text-transform: uppercase;
+  margin-bottom: 28px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+.hero-stat { padding: 18px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+.hero-stat:last-child { border-bottom: none; padding-bottom: 0; }
+.hero-stat-value {
+  font-family: 'Lora', serif;
+  font-size: 40px;
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1;
+  letter-spacing: -1px;
+}
+.hero-stat-label { font-size: 12px; color: rgba(255,255,255,0.38); margin-top: 4px; font-weight: 300; }
+
+/* ====== METRICS STRIP ====== */
+.metrics-strip {
+  background: var(--accent);
+  padding: 52px 0;
+}
+.metrics-inner {
+  width: 90%; max-width: 1100px; margin: auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+.metric-item {
+  padding: 0 36px;
+  border-right: 1px solid rgba(255,255,255,0.2);
+}
+.metric-item:first-child { padding-left: 0; }
+.metric-item:last-child { border-right: none; }
+.metric-value {
+  font-family: 'Lora', serif;
+  font-size: clamp(36px, 4.5vw, 58px);
+  font-weight: 700;
+  color: #fff;
+  line-height: 1;
+  letter-spacing: -1.5px;
+  margin-bottom: 6px;
+}
+.metric-label { font-size: 13px; color: rgba(255,255,255,0.65); line-height: 1.4; font-weight: 300; }
+
+/* ====== SECTIONS ====== */
+.section { padding: 110px 0; }
+.section-inner { width: 90%; max-width: 1100px; margin: auto; }
+.section-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 60px; gap: 20px; }
+.section-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: var(--accent);
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.section-title {
+  font-family: 'Lora', serif;
+  font-size: clamp(32px, 4vw, 52px);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -1.5px;
+}
+.section-line { flex: 1; height: 1px; background: var(--border); margin: 0 0 10px 40px; max-width: 200px; }
+
+/* ====== ABOUT ====== */
+.about-bg { background: var(--ink); color: #fff; }
+.about-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 80px; align-items: center; }
+.about-title {
+  font-family: 'Lora', serif;
+  font-size: clamp(34px, 4vw, 50px);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -1.5px;
+  color: #fff;
+  margin-bottom: 24px;
+}
+.about-title em { font-style: italic; color: rgba(255,255,255,0.45); }
+.about-text { font-size: 15px; color: rgba(255,255,255,0.5); line-height: 1.9; font-weight: 300; margin-bottom: 24px; }
+.about-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+.pill {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  padding: 5px 12px;
+  border: 1px solid rgba(255,255,255,0.13);
+  color: rgba(255,255,255,0.55);
+  letter-spacing: 0.3px;
+  transition: all 0.2s;
+}
+.pill:hover { border-color: var(--accent); color: #fff; }
+.about-right { display: flex; flex-direction: column; gap: 2px; }
+.about-feat {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.05);
+  padding: 22px 26px;
+  transition: all 0.25s;
+  position: relative;
+  overflow: hidden;
+}
+.about-feat::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0; width: 2px;
+  background: var(--accent);
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 0.3s;
+}
+.about-feat:hover::before { transform: scaleY(1); }
+.about-feat:hover { background: rgba(255,255,255,0.04); padding-left: 34px; }
+.about-feat-num { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--accent); letter-spacing: 2px; margin-bottom: 6px; }
+.about-feat-text { font-size: 14px; color: rgba(255,255,255,0.6); line-height: 1.65; }
+
+/* ====== SKILLS ====== */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2px;
+  background: var(--border);
+  border: 1px solid var(--border);
+}
+.skill-card {
+  background: var(--card);
+  padding: 40px 36px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.25s;
+}
+.skill-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s cubic-bezier(.25,.46,.45,.94);
+}
+.skill-card:hover::after { transform: scaleX(1); }
+.skill-card:hover { background: var(--warm); }
+.skill-icon-wrap {
+  width: 48px; height: 48px;
+  background: var(--warm);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+  margin-bottom: 20px;
+  transition: background 0.2s;
+}
+.skill-card:hover .skill-icon-wrap { background: rgba(26,77,143,0.08); }
+.skill-name {
+  font-family: 'Lora', serif;
+  font-size: 19px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  letter-spacing: -0.3px;
+}
+.skill-desc { font-size: 14px; color: var(--muted); line-height: 1.75; margin-bottom: 18px; font-weight: 300; }
+.skill-tags { display: flex; flex-wrap: wrap; gap: 7px; }
+.stag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  padding: 4px 10px;
+  background: var(--warm);
+  color: var(--muted);
+  border: 1px solid var(--border);
+  letter-spacing: 0.2px;
+  transition: all 0.2s;
+}
+.skill-card:hover .stag { background: rgba(26,77,143,0.05); border-color: rgba(26,77,143,0.2); color: var(--accent); }
+
+/* ====== ACHIEVEMENTS ====== */
+.achievements-bg { background: var(--warm); }
+.ach-intro {
+  font-size: 16px;
+  color: var(--muted);
+  line-height: 1.8;
+  max-width: 680px;
+  font-weight: 300;
+  margin-bottom: 56px;
+}
+/* Tab nav */
+.ach-tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 2px solid var(--border);
+  margin-bottom: 48px;
+}
+.ach-tab {
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  padding: 14px 28px;
+  color: var(--muted);
+  border: none;
+  background: none;
+  cursor: none;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -2px;
+  transition: all 0.2s;
+}
+.ach-tab:hover { color: var(--accent); }
+.ach-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+/* Tab panels */
+.ach-panel { display: none; }
+.ach-panel.active { display: block; }
+
+/* Gallery grid */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.gallery-item {
+  background: var(--card);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  position: relative;
+  transition: all 0.3s;
+  cursor: none;
+}
+.gallery-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 48px var(--shadow);
+  border-color: var(--accent);
+}
+/* Image placeholder / upload zone */
+.gallery-img-wrap {
+  width: 100%;
+  aspect-ratio: 16/10;
+  background: linear-gradient(135deg, #e8eef7 0%, #dce6f4 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+.gallery-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.gallery-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  color: #8aa3c4;
+}
+.gallery-placeholder-icon { font-size: 32px; opacity: 0.5; }
+.gallery-placeholder-text { font-size: 12px; font-weight: 500; letter-spacing: 0.5px; text-align: center; opacity: 0.7; }
+.gallery-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(26,77,143,0.85);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.gallery-item:hover .gallery-overlay { opacity: 1; }
+.gallery-overlay-text { color: #fff; font-size: 13px; font-weight: 600; letter-spacing: 0.5px; }
+.gallery-overlay-sub { color: rgba(255,255,255,0.7); font-size: 11px; }
+
+.gallery-caption { padding: 16px 18px 18px; }
+.gallery-cap-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: var(--accent);
+  text-transform: uppercase;
+  margin-bottom: 5px;
+}
+.gallery-cap-title { font-family: 'Lora', serif; font-size: 15px; font-weight: 600; margin-bottom: 4px; line-height: 1.3; }
+.gallery-cap-desc { font-size: 12px; color: var(--muted); line-height: 1.5; font-weight: 300; }
+
+/* Result chip on gallery */
+.result-chip {
+  position: absolute;
+  top: 10px; right: 10px;
+  background: var(--accent);
+  color: #fff;
+  font-family: 'Lora', serif;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 4px 10px;
+  letter-spacing: -0.3px;
+  z-index: 2;
+}
+
+/* Upload hint */
+.upload-hint {
+  margin-top: 32px;
+  padding: 20px 24px;
+  background: rgba(26,77,143,0.06);
+  border: 1.5px dashed rgba(26,77,143,0.25);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 13px;
+  color: var(--accent);
+  font-weight: 500;
+}
+.upload-hint-icon { font-size: 20px; flex-shrink: 0; }
+
+/* ====== PROJECTS ====== */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2px;
+  background: var(--border);
+  border: 1px solid var(--border);
+}
+.project-card {
+  background: var(--card);
+  padding: 44px 40px;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.25s;
+  position: relative;
+  overflow: hidden;
+}
+.project-card::before {
+  content: attr(data-num);
+  position: absolute;
+  top: -12px; right: 16px;
+  font-family: 'Lora', serif;
+  font-size: 96px;
+  font-weight: 700;
+  color: rgba(15,15,15,0.04);
+  line-height: 1;
+  user-select: none;
+  pointer-events: none;
+}
+.project-card:hover { background: var(--warm); transform: translateY(-3px); box-shadow: 0 16px 48px var(--shadow); z-index: 1; }
+.project-cat { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 3px; color: var(--accent); text-transform: uppercase; margin-bottom: 14px; }
+.project-title { font-family: 'Lora', serif; font-size: 21px; font-weight: 600; letter-spacing: -0.3px; margin-bottom: 14px; line-height: 1.3; }
+.project-desc { font-size: 14px; color: var(--muted); line-height: 1.8; font-weight: 300; flex: 1; margin-bottom: 24px; }
+.project-result { display: flex; align-items: center; gap: 14px; padding-top: 20px; border-top: 1px solid var(--border); }
+.project-num { font-family: 'Lora', serif; font-size: 34px; font-weight: 700; color: var(--accent); letter-spacing: -1px; line-height: 1; }
+.project-num-label { font-size: 12px; color: var(--muted); line-height: 1.5; }
+.project-link { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 700; color: var(--accent); text-decoration: none; margin-top: 8px; transition: gap 0.2s; }
+.project-link:hover { gap: 10px; }
+
+/* ====== TOOLS ====== */
+.tools-grid { display: flex; flex-wrap: wrap; gap: 10px; }
+.tool-item {
+  display: flex; align-items: center; gap: 10px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: 12px 20px;
+  font-size: 13px; font-weight: 600;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.tool-item:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); box-shadow: 0 6px 20px var(--shadow); }
+.tool-dot { width: 7px; height: 7px; background: var(--accent); border-radius: 50%; flex-shrink: 0; }
+
+/* ====== CONTACT PAGE ====== */
+.contact-page { background: var(--ink); }
+.contact-page-inner {
+  width: 90%; max-width: 1100px; margin: auto;
+  padding: 120px 0;
+}
+.contact-hero {
   text-align: center;
-  padding: 20px;
+  margin-bottom: 80px;
+}
+.contact-tag { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 3px; color: var(--accent); text-transform: uppercase; margin-bottom: 20px; display: block; }
+.contact-heading {
+  font-family: 'Lora', serif;
+  font-size: clamp(40px, 6vw, 72px);
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.1;
+  letter-spacing: -2px;
+  margin-bottom: 20px;
+}
+.contact-heading span { font-style: italic; color: rgba(255,255,255,0.35); }
+.contact-sub-text { font-size: 16px; color: rgba(255,255,255,0.45); max-width: 500px; margin: 0 auto; line-height: 1.8; font-weight: 300; }
+
+/* Contact cards grid */
+.contact-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  margin-bottom: 48px;
+}
+.contact-card {
+  background: rgba(255,255,255,0.02);
+  padding: 40px 36px;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: all 0.25s;
+  border-right: 1px solid rgba(255,255,255,0.06);
+  position: relative;
+  overflow: hidden;
+}
+.contact-card:last-child { border-right: none; }
+.contact-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s;
+}
+.contact-card:hover::after { transform: scaleX(1); }
+.contact-card:hover { background: rgba(255,255,255,0.05); padding-top: 32px; }
+.contact-card-icon {
+  width: 50px; height: 50px;
+  background: rgba(26,77,143,0.2);
+  border: 1px solid rgba(26,77,143,0.3);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px;
+}
+.contact-card-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 2px; color: rgba(255,255,255,0.3); text-transform: uppercase; }
+.contact-card-value { font-family: 'Lora', serif; font-size: 17px; font-weight: 600; color: #fff; line-height: 1.3; }
+.contact-card:hover .contact-card-value { color: var(--accent); }
+.contact-card-sub { font-size: 12px; color: rgba(255,255,255,0.3); font-weight: 300; }
+
+/* Availability note */
+.contact-avail {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.07);
+  padding: 24px 32px;
+}
+.avail-dot { width: 10px; height: 10px; background: #22c55e; border-radius: 50%; flex-shrink: 0; animation: blink 2s infinite; }
+.avail-text { font-size: 14px; color: rgba(255,255,255,0.55); font-weight: 300; }
+.avail-text strong { color: #fff; font-weight: 600; }
+
+/* ====== FOOTER ====== */
+footer {
+  background: rgba(255,255,255,0.02);
+  border-top: 1px solid rgba(255,255,255,0.06);
+  text-align: center;
+  padding: 28px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: rgba(255,255,255,0.2);
+  letter-spacing: 1px;
+}
+
+/* ====== ANIMATIONS ====== */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.anim { opacity: 0; transform: translateY(24px); transition: opacity 0.65s ease, transform 0.65s ease; }
+.anim.in { opacity: 1; transform: none; }
+.anim-d1 { transition-delay: 0.1s; }
+.anim-d2 { transition-delay: 0.2s; }
+.anim-d3 { transition-delay: 0.3s; }
+
+/* ====== RESPONSIVE ====== */
+@media (max-width: 960px) {
+  nav { padding: 16px 24px; }
+  .nav-links { gap: 20px; }
+  .hero-inner { grid-template-columns: 1fr; gap: 48px; padding: 40px 0 80px; }
+  .hero-card { display: none; }
+  .about-grid { grid-template-columns: 1fr; gap: 48px; }
+  .skills-grid, .projects-grid { grid-template-columns: 1fr; }
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+  .metrics-inner { grid-template-columns: repeat(2, 1fr); gap: 32px; }
+  .metric-item { border-right: none; padding: 0; }
+  .contact-cards { grid-template-columns: 1fr; }
+  .contact-card { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.06); }
+  .section-header { flex-direction: column; align-items: flex-start; }
+  .section-line { display: none; }
+}
+@media (max-width: 600px) {
+  .nav-links { display: none; }
+  .gallery-grid { grid-template-columns: 1fr; }
+  .metrics-inner { grid-template-columns: 1fr 1fr; }
+  .ach-tabs { overflow-x: auto; }
+  .ach-tab { font-size: 11px; padding: 12px 16px; white-space: nowrap; }
 }
 </style>
-
 </head>
-
 <body>
 
-<header>
-  <div class="container">
-    <h1>Sourabh Malage</h1>
-    <p>Performance Marketing Specialist | Google Ads | Meta Ads | SEO</p>
-    <a href="#contact" class="btn">Contact Me</a>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#top" class="nav-logo">SM<span>.</span></a>
+  <div class="nav-right">
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#achievements">Achievements</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="Sourabh_Malage_Resume.pdf" download class="nav-resume-btn">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 16l-5-5 1.41-1.41L11 13.17V4h2v9.17l2.59-2.58L17 11l-5 5zm-7 3h14v2H5v-2z"/></svg>
+      Download CV
+    </a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header id="top">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow">
+        <span class="hero-eyebrow-dot"></span>
+        Digital Marketing Specialist
+      </div>
+      <h1 class="hero-name">
+        Sourabh<br>
+        <span class="outline">Malage</span>
+      </h1>
+      <p class="hero-desc">
+        Driving measurable growth through Google Ads, Meta Ads, SEO, and full-funnel conversion strategy. Performance-first marketer with 8+ years of professional experience and a data-driven approach to every campaign.
+      </p>
+      <div class="hero-cta">
+        <a href="#contact" class="btn-primary">Get in Touch ↗</a>
+        <a href="https://www.linkedin.com/in/sourabh-malage-96921a114/" target="_blank" class="btn-ghost">LinkedIn Profile</a>
+      </div>
+    </div>
+    <div class="hero-card">
+      <p class="hero-card-label">// Key Metrics</p>
+      <div class="hero-stat">
+        <div class="hero-stat-value">₹5L+</div>
+        <div class="hero-stat-label">Ad spend managed, Google & Meta</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-value">200%+</div>
+        <div class="hero-stat-label">Organic traffic growth achieved</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-value">40%</div>
+        <div class="hero-stat-label">Revenue growth via lead gen</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-value">8 yrs</div>
+        <div class="hero-stat-label">Total professional experience</div>
+      </div>
+    </div>
   </div>
 </header>
 
-<section class="about container">
-  <h2>About Me</h2>
-  <p>
-    Performance Marketing professional with experience in Google Ads, Meta Ads, SEO, and conversion optimization across e-commerce and lead generation projects. Skilled in campaign optimization, audience targeting, tracking implementation, and performance-driven growth strategies.
-  </p>
+<!-- METRICS STRIP -->
+<div class="metrics-strip">
+  <div class="metrics-inner">
+    <div class="metric-item"><div class="metric-value">₹5L+</div><div class="metric-label">Ad Budget Managed<br>Google Ads & Meta Ads</div></div>
+    <div class="metric-item"><div class="metric-value">200%</div><div class="metric-label">Organic Traffic Growth<br>via SEO Strategy</div></div>
+    <div class="metric-item"><div class="metric-value">40%</div><div class="metric-label">Revenue Growth<br>via Market Research</div></div>
+    <div class="metric-item"><div class="metric-value">8+</div><div class="metric-label">Years Professional<br>Experience</div></div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="section about-bg" id="about">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="anim">
+        <p class="section-tag" style="color:rgba(100,150,220,0.9)">// 01 — About</p>
+        <h2 class="about-title">Performance, not just <em>presence.</em></h2>
+        <p class="about-text">I'm a digital marketing specialist with hands-on experience across paid media, SEO, analytics, and conversion optimisation. What differentiates me is a full-funnel perspective — from how a customer discovers you, to how they convert and come back.</p>
+        <p class="about-text">At Bynaric Systems, I manage ₹5L+ ad budgets and optimise campaigns daily. Every decision is tied to a metric: CTR, CPA, or ROAS. My commercial background at Reliance gives me a business lens that most marketers lack.</p>
+        <div class="about-pills">
+          <span class="pill">Google Ads</span><span class="pill">Meta Ads</span><span class="pill">GA4</span><span class="pill">GTM</span><span class="pill">SEMrush</span><span class="pill">Pixel & CAPI</span><span class="pill">WordPress</span><span class="pill">Shopify</span>
+        </div>
+      </div>
+      <div class="about-right anim anim-d2">
+        <div class="about-feat"><div class="about-feat-num">01 — MINDSET</div><div class="about-feat-text">Every rupee of ad spend must justify itself. I build campaigns around data, not assumptions.</div></div>
+        <div class="about-feat"><div class="about-feat-num">02 — APPROACH</div><div class="about-feat-text">Full-funnel thinking: paid acquisition, landing page quality, tracking, and retargeting work together.</div></div>
+        <div class="about-feat"><div class="about-feat-num">03 — EDGE</div><div class="about-feat-text">Sales background at Reliance gives me a commercial lens most marketers lack — I understand revenue.</div></div>
+        <div class="about-feat"><div class="about-feat-num">04 — GROWTH</div><div class="about-feat-text">Currently deepening expertise in GA4 event tracking, advanced GTM, and conversion measurement.</div></div>
+      </div>
+    </div>
+  </div>
 </section>
 
-<section class="skills container">
-  <h2>Core Expertise</h2>
-  <div class="grid">
-    <div>
-      <h3>Performance Marketing</h3>
-      <p>Google Ads, Meta Ads, PPC Optimization, Retargeting, A/B Testing, ROAS Optimization</p>
+<!-- SKILLS -->
+<section class="section" id="skills">
+  <div class="section-inner">
+    <div class="section-header anim">
+      <div><p class="section-tag">// 02 — Skills</p><h2 class="section-title">Core Expertise</h2></div>
+      <div class="section-line"></div>
     </div>
-    <div>
-      <h3>SEO</h3>
-      <p>Technical SEO, On-Page SEO, Keyword Research, Website Audit</p>
-    </div>
-    <div>
-      <h3>Analytics & Tracking</h3>
-      <p>GA4, Google Tag Manager, Conversion Tracking, Pixel Implementation</p>
-    </div>
-    <div>
-      <h3>Conversion & Automation</h3>
-      <p>Landing Page Optimization, WhatsApp Business API, Lead Funnels</p>
+    <div class="skills-grid anim anim-d1">
+      <div class="skill-card">
+        <div class="skill-icon-wrap">⚡</div>
+        <div class="skill-name">Performance Marketing</div>
+        <p class="skill-desc">End-to-end paid campaign management focused on ROI, ROAS, and quality lead generation across Google and Meta.</p>
+        <div class="skill-tags"><span class="stag">Google Ads</span><span class="stag">Meta Ads</span><span class="stag">PPC</span><span class="stag">Retargeting</span><span class="stag">A/B Testing</span></div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon-wrap">📊</div>
+        <div class="skill-name">Analytics & Tracking</div>
+        <p class="skill-desc">Accurate attribution infrastructure to measure every conversion and make informed optimisation decisions.</p>
+        <div class="skill-tags"><span class="stag">GA4</span><span class="stag">GTM</span><span class="stag">Facebook Pixel</span><span class="stag">Conversion API</span></div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon-wrap">🔍</div>
+        <div class="skill-name">SEO Strategy</div>
+        <p class="skill-desc">Technical audits, on-page optimisation, and keyword strategy to build organic visibility that compounds.</p>
+        <div class="skill-tags"><span class="stag">Technical SEO</span><span class="stag">On-Page</span><span class="stag">SEMrush</span><span class="stag">GSC</span></div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon-wrap">🚀</div>
+        <div class="skill-name">Conversion & Automation</div>
+        <p class="skill-desc">Landing page optimisation and WhatsApp automation workflows that convert leads without manual effort.</p>
+        <div class="skill-tags"><span class="stag">Landing Page CRO</span><span class="stag">WhatsApp API</span><span class="stag">Lead Funnels</span><span class="stag">WordPress</span></div>
+      </div>
     </div>
   </div>
 </section>
 
-<section class="projects container">
-  <h2>Selected Projects</h2>
+<!-- ACHIEVEMENTS (Screenshot Gallery) -->
+<section class="section achievements-bg" id="achievements">
+  <div class="section-inner">
+    <div class="section-header anim">
+      <div><p class="section-tag">// 03 — Proof of Work</p><h2 class="section-title">Achievements</h2></div>
+      <div class="section-line"></div>
+    </div>
+    <p class="ach-intro anim">Real campaign results, ad dashboards, and content work — not just claims. Click any screenshot to view in detail.</p>
 
-  <div class="card">
-    <h3>SEO Growth — Deeporion</h3>
-    <p>Improved organic visibility through technical SEO audit, on-page optimization, and keyword strategy. Organic traffic increased significantly based on SEMrush estimates.</p>
+    <!-- Tabs -->
+    <div class="ach-tabs anim anim-d1">
+      <button class="ach-tab active" data-tab="ads">📈 Ad Campaigns</button>
+      <button class="ach-tab" data-tab="seo">🔍 SEO Results</button>
+      <button class="ach-tab" data-tab="social">📱 Social Media</button>
+      <button class="ach-tab" data-tab="web">🌐 Web Projects</button>
+    </div>
+
+    <!-- AD CAMPAIGNS TAB -->
+    <div class="ach-panel active" id="tab-ads">
+      <div class="gallery-grid">
+
+        <div class="gallery-item">
+          <div class="gallery-img-wrap">
+            <!-- Replace src with your actual screenshot path e.g. "screenshots/google-ads-roas.png" -->
+            <img src="screenshots/google-ads-dashboard.png" alt="Google Ads Dashboard" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" style="display:none;">
+            <div class="gallery-placeholder">
+              <div class="gallery-placeholder-icon">📸</div>
+              <div class="gallery-placeholder-text">Add screenshot:<br>google-ads-dashboard.png</div>
+            </div>
+            <div class="result-chip">₹5L+ Spend</div>
+            <div class="gallery-overlay">
+              <div class="gallery-overlay-text">Google Ads Dashboard</div>
+              <div class="gallery-overlay-sub">View Campaign Results</div>
+            </div>
+          </div>
+          <div class="gallery-caption">
+            <div class="gallery-cap-tag">Google Ads</div>
+            <div class="gallery-cap-title">Campaign Overview Dashboard</div>
+            <div class="gallery-cap-desc">Monthly campaign performance showing ROAS, CTR, and CPA metrics across e-commerce campaigns.</div>
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <div class="gallery-img-wrap">
+            <img src="screenshots/meta-ads-results.png" alt="Meta Ads Results" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" style="display:none;">
+            <div class="gallery-placeholder">
+              <div class="gallery-placeholder-icon">📸</div>
+              <div class="gallery-placeholder-text">Add screenshot:<br>meta-ads-results.png</div>
+            </div>
+            <div class="result-chip">CPA Optimised</div>
+            <div class="gallery-overlay">
+              <div class="gallery-overlay-text">Meta Ads Results</div>
+              <div class="gallery-overlay-sub">View Ad Performance</div>
+            </div>
+          </div>
+          <div class="gallery-caption">
+            <div class="gallery-cap-tag">Meta Ads</div>
+            <div class="gallery-cap-title">Lead Generation Campaign Results</div>
+            <div class="gallery-cap-desc">Cost per lead reduction achieved through audience segmentation and creative A/B testing.</div>
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <div class="gallery-img-wrap">
+            <img src="screenshots/ab-test-results.png" alt="A/B Test Results" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" style="display:none;">
+            <div class="gallery-placeholder">
+              <div class="gallery-placeholder-icon">📸</div>
+              <div class="gallery-placeholder-text">Add screenshot:<br>ab-test-results.png</div>
+            </div>
+            <div class="result-chip">CTR Improved</div>
+            <div class="gallery-overlay">
+              <div class="gallery-overlay-text">A/B Test Comparison</div>
+              <div class="gallery-overlay-sub">Creative Testing Results</div>
+            </div>
+          </div>
+          <div class="gallery-caption">
+            <div class="gallery-cap-tag">Creative Testing</div>
+            <div class="gallery-cap-title">A/B Test — Creative Variants</div>
+            <div class="gallery-cap-desc">Side-by-side comparison of winning vs losing creatives showing CTR and conversion lift.</div>
+          </div>
+        </div>
+
+      </div>
+      <div class="upload-hint">
+        <span class="upload-hint-icon">💡</span>
+        <span>To add your screenshots: save images to a <strong>screenshots/</strong> folder alongside this HTML file and update the <code>src</code> paths above to match your filenames.</span>
+      </div>
+    </div>
+
+    <!-- SEO RESULTS TAB -->
+    <div class="ach-panel" id="tab-seo">
+      <div class="gallery-grid">
+
+        <div class="gallery-item">
+          <div class="gallery-img-wrap">
+            <img src="screenshots/semrush-traffic-growth.png" alt="SEMrush Traffic" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" style="display:none;">
+            <div class="gallery-placeholder">
+              <div class="gallery-placeholder-icon">📸</div>
+              <div class="gallery-placeholder-text">Add screenshot:<br>semrush-traffic-growth.png</div>
+            </div>
+            <div class="result-chip">200%+ Growth</div>
+            <div class="gallery-overlay">
+              <div class="gallery-overlay-text">SEMrush Traffic Report</div>
+              <div class="gallery-overlay-sub">Organic Growth Data</div>
+            </div>
+          </div>
+          <div class="gallery-caption">
+            <div class="gallery-cap-tag">SEMrush</div>
+            <div class="gallery-cap-title">Organic Traffic Growth — 200%+</div>
+            <div class="gallery-cap-desc">From ~12 to ~400 monthly organic visitors through targeted SEO strategy implementation.</div>
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <div class="gallery-img-wrap">
+            <img src="screenshots/gsc-rankings.png" alt="GSC Rankings" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" style="display:none;">
+            <div class="gallery-placeholder">
+              <div class="gallery-placeholder-icon">📸</div>
+              <div class="gallery-placeholder-text">Add screenshot:<br>gsc-rankings.png</div>
+            </div>
+            <div class="result-chip">Top Rankings</div>
+            <div class="gallery-overlay">
+              <div class="gallery-overlay-text">Google Search Console</div>
+              <div class="gallery-overlay-sub">Keyword Rankings</div>
+            </div>
+          </div>
+          <div class="gallery-caption">
+            <div class="gallery-cap-tag">Google Search Console</div>
+            <div class="gallery-cap-title">Keyword Position Improvements</div>
+            <div class="gallery-cap-desc">Search Console report showing improved average position and click-through rate across target keywords.</div>
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <div class="gallery-img-wrap">
+            <img src="screenshots/ga4-organic-traffic.png" alt="GA4 Traffic" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" style="display:none;">
+            <div class="gallery-placeholder">
+              <div class="gallery-placeholder-icon">📸</div>
+              <div class="gallery-placeholder-text">Add screenshot:<br>ga4-organic-traffic.png</div>
+            </div>
+            <div class="result-chip">GA4 Data</div>
+            <div class="gallery-overlay">
+              <div class="gallery-overlay-text">GA4 Organic Report</div>
+              <div class="gallery-overlay-sub">Session & Engagement Data</div>
+            </div>
+          </div>
+          <div class="gallery-caption">
+            <div class="gallery-cap-tag">Google Analytics 4</div>
+            <div class="gallery-cap-title">Organic Session Growth</div>
+            <div class="gallery-cap-desc">GA4 report showing sustained organic traffic growth and improved engagement metrics post-SEO work.</div>
+          </div>
+        </div>
+
+      </div>
+      <div class="upload-hint">
+        <span class="upload-hint-icon">💡</span>
+        <span>Add your SEMrush, GSC, and GA4 screenshots to the <strong>screenshots/</strong> folder and update the file paths to display your results here.</span>
+      </div>
+    </div>
+
+    <!-- SOCIAL MEDIA TAB -->
+    <div class="ach-panel" id="tab-social">
+      <div class="gallery-grid">
+
+        <div class="gallery-item">
+          <div class="gallery-img-wrap">
+            <img src="screenshots/sapien-kid-ig.png" alt="Sapien Kid Instagram" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" style="display:none;">
+            <div class="gallery-placeholder">
+              <div class="gallery-placeholder-icon">📸</div>
+              <div class="gallery-placeholder-text">Add screenshot:<br>sapien-kid-ig.png</div>
+            </div>
+            <div class="gallery-overlay">
+              <div class="gallery-overlay-text">@sapien_kid</div>
+              <div class="gallery-overlay-sub">Content & Growth</div>
+            </div>
+          </div>
+          <div class="gallery-caption">
+            <div class="gallery-cap-tag">Instagram</div>
+            <div class="gallery-cap-title">@sapien_kid — Content Strategy</div>
+            <div class="gallery-cap-desc">Social media content planning, post creation, and engagement strategy for this account.</div>
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <div class="gallery-img-wrap">
+            <img src="screenshots/happybucket-ig.png" alt="Happy Bucket Instagram" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" style="display:none;">
+            <div class="gallery-placeholder">
+              <div class="gallery-placeholder-icon">📸</div>
+              <div class="gallery-placeholder-text">Add screenshot:<br>happybucket-ig.png</div>
+            </div>
+            <div class="gallery-overlay">
+              <div class="gallery-overlay-text">@happybucket_saya</div>
+              <div class="gallery-overlay-sub">Content Work</div>
+            </div>
+          </div>
+          <div class="gallery-caption">
+            <div class="gallery-cap-tag">Instagram</div>
+            <div class="gallery-cap-title">@happybucket_saya — Content Calendar</div>
+            <div class="gallery-cap-desc">Monthly content calendar execution, caption writing, and performance analytics for this brand account.</div>
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <div class="gallery-img-wrap">
+            <img src="screenshots/stockguru-ig.png" alt="Trade With StockGuru Instagram" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" style="display:none;">
+            <div class="gallery-placeholder">
+              <div class="gallery-placeholder-icon">📸</div>
+              <div class="gallery-placeholder-text">Add screenshot:<br>stockguru-ig.png</div>
+            </div>
+            <div class="gallery-overlay">
+              <div class="gallery-overlay-text">@tradewithstockguru</div>
+              <div class="gallery-overlay-sub">Reach & Engagement</div>
+            </div>
+          </div>
+          <div class="gallery-caption">
+            <div class="gallery-cap-tag">Instagram</div>
+            <div class="gallery-cap-title">@tradewithstockguru — Finance Content</div>
+            <div class="gallery-cap-desc">Educational finance content creation, post design, and audience growth strategy for this trading brand.</div>
+          </div>
+        </div>
+
+      </div>
+      <div class="upload-hint">
+        <span class="upload-hint-icon">💡</span>
+        <span>Add your Instagram account screenshots (profile page, post insights, reach stats) to the <strong>screenshots/</strong> folder to showcase your social media work.</span>
+      </div>
+    </div>
+
+    <!-- WEB PROJECTS TAB -->
+    <div class="ach-panel" id="tab-web">
+      <div class="gallery-grid">
+
+        <div class="gallery-item">
+          <div class="gallery-img-wrap">
+            <img src="screenshots/stockpriceguru-site.png" alt="StockPriceGuru Website" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" style="display:none;">
+            <div class="gallery-placeholder">
+              <div class="gallery-placeholder-icon">📸</div>
+              <div class="gallery-placeholder-text">Add screenshot:<br>stockpriceguru-site.png</div>
+            </div>
+            <div class="result-chip">Live Site</div>
+            <div class="gallery-overlay">
+              <div class="gallery-overlay-text">stockpriceguru.com</div>
+              <div class="gallery-overlay-sub">Visit Live Site ↗</div>
+            </div>
+          </div>
+          <div class="gallery-caption">
+            <div class="gallery-cap-tag">WordPress</div>
+            <div class="gallery-cap-title">StockPriceGuru.com</div>
+            <div class="gallery-cap-desc">Built and launched WordPress site with SEO-optimised structure and conversion-focused layout.</div>
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <div class="gallery-img-wrap">
+            <img src="screenshots/opulencegroup-site.png" alt="Opulence Group Website" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" style="display:none;">
+            <div class="gallery-placeholder">
+              <div class="gallery-placeholder-icon">📸</div>
+              <div class="gallery-placeholder-text">Add screenshot:<br>opulencegroup-site.png</div>
+            </div>
+            <div class="result-chip">Live Site</div>
+            <div class="gallery-overlay">
+              <div class="gallery-overlay-text">opulencegroup.in</div>
+              <div class="gallery-overlay-sub">Visit Live Site ↗</div>
+            </div>
+          </div>
+          <div class="gallery-caption">
+            <div class="gallery-cap-tag">WordPress</div>
+            <div class="gallery-cap-title">OpulenceGroup.in</div>
+            <div class="gallery-cap-desc">Business website with lead generation focus, performance tracking, and SEO-optimised content architecture.</div>
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <div class="gallery-img-wrap">
+            <img src="screenshots/whatsapp-automation.png" alt="WhatsApp Automation" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" style="display:none;">
+            <div class="gallery-placeholder">
+              <div class="gallery-placeholder-icon">📸</div>
+              <div class="gallery-placeholder-text">Add screenshot:<br>whatsapp-automation.png</div>
+            </div>
+            <div class="result-chip">Automated</div>
+            <div class="gallery-overlay">
+              <div class="gallery-overlay-text">WhatsApp API Workflow</div>
+              <div class="gallery-overlay-sub">Lead Nurturing Flow</div>
+            </div>
+          </div>
+          <div class="gallery-caption">
+            <div class="gallery-cap-tag">Automation</div>
+            <div class="gallery-cap-title">WhatsApp Business API — Lead Flow</div>
+            <div class="gallery-cap-desc">Chatbot workflow design for automated lead nurturing, follow-ups, and sales team handoff.</div>
+          </div>
+        </div>
+
+      </div>
+      <div class="upload-hint">
+        <span class="upload-hint-icon">💡</span>
+        <span>Add screenshots of your live websites and automation workflows to the <strong>screenshots/</strong> folder to visually demonstrate your development work.</span>
+      </div>
+    </div>
+
   </div>
-
-  <div class="card">
-    <h3>Performance Ads Campaign</h3>
-    <p>Managed ₹5L+ ad budget across Google Ads and Meta Ads. Implemented targeting, retargeting, and conversion optimization strategies.</p>
-  </div>
-
-  <div class="card">
-    <h3>WhatsApp Automation & Funnel Setup</h3>
-    <p>Implemented WhatsApp Business API chatbot workflows for lead nurturing and engagement automation.</p>
-  </div>
-
-  <div class="card">
-    <h3>WordPress Website Projects</h3>
-    <p>
-      <a href="https://stockpriceguru.com/" target="_blank">stockpriceguru.com</a><br>
-      <a href="https://opulencegroup.in/" target="_blank">opulencegroup.in</a>
-    </p>
-  </div>
-
 </section>
 
-<section class="contact container" id="contact">
-  <h2>Contact</h2>
-  <p>Email: your-email@gmail.com</p>
-  <p>LinkedIn: linkedin.com/in/sourabh-malage-96921a114</p>
+<!-- PROJECTS -->
+<section class="section" id="projects">
+  <div class="section-inner">
+    <div class="section-header anim">
+      <div><p class="section-tag">// 04 — Work</p><h2 class="section-title">Selected Projects</h2></div>
+      <div class="section-line"></div>
+    </div>
+    <div class="projects-grid anim anim-d1">
+      <div class="project-card" data-num="01">
+        <p class="project-cat">Paid Media</p>
+        <h3 class="project-title">E-Commerce Performance Campaign Management</h3>
+        <p class="project-desc">Managed ₹5L+ monthly ad spend across Google Ads and Meta Ads. Ran systematic A/B tests on creatives, audiences, and placements. Implemented pixel-based retargeting with custom audience segmentation to re-engage high-intent visitors.</p>
+        <div class="project-result">
+          <span class="project-num">₹5L+</span>
+          <span class="project-num-label">Budget managed<br>CTR, CPA & ROAS improved</span>
+        </div>
+      </div>
+      <div class="project-card" data-num="02">
+        <p class="project-cat">SEO Growth</p>
+        <h3 class="project-title">Organic Traffic Turnaround — IT Solutions Brand</h3>
+        <p class="project-desc">Inherited a near-invisible website and executed a full SEO strategy: technical audit, on-page overhaul, keyword mapping, and off-page link acquisition. Transformed it into a consistent lead-generating channel.</p>
+        <div class="project-result">
+          <span class="project-num">200%+</span>
+          <span class="project-num-label">Traffic growth<br>~12 → ~400 monthly organic visitors</span>
+        </div>
+      </div>
+      <div class="project-card" data-num="03">
+        <p class="project-cat">Automation</p>
+        <h3 class="project-title">WhatsApp Lead Nurturing Workflow</h3>
+        <p class="project-desc">Designed WhatsApp Business API chatbot flows for automated lead follow-up, nurturing sequences, and sales team handoff. Eliminated manual lag and improved lead response rates at scale.</p>
+        <div class="project-result">
+          <span class="project-num">Auto</span>
+          <span class="project-num-label">Scalable lead nurturing<br>Reduced manual follow-up effort</span>
+        </div>
+      </div>
+      <div class="project-card" data-num="04">
+        <p class="project-cat">Web Development</p>
+        <h3 class="project-title">WordPress Website Projects</h3>
+        <p class="project-desc">Built and launched two WordPress websites with SEO-optimised structure, conversion-focused layouts, and performance tracking integration. Both sites serve as lead generation platforms.</p>
+        <div style="margin-top: auto; padding-top: 20px; display: flex; flex-direction: column; gap: 8px;">
+          <a href="https://stockpriceguru.com/" target="_blank" class="project-link">stockpriceguru.com ↗</a>
+          <a href="https://opulencegroup.in/" target="_blank" class="project-link">opulencegroup.in ↗</a>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
-<footer>
-  <p>© 2025 Sourabh Malage</p>
-</footer>
+<!-- TOOLS -->
+<section class="section" style="background: var(--warm); padding-top: 0;">
+  <div class="section-inner" style="padding-top: 110px;">
+    <div class="section-header anim">
+      <div><p class="section-tag">// 05 — Stack</p><h2 class="section-title">Tools & Platforms</h2></div>
+      <div class="section-line"></div>
+    </div>
+    <div class="tools-grid anim anim-d1">
+      <div class="tool-item"><span class="tool-dot"></span>Google Ads</div>
+      <div class="tool-item"><span class="tool-dot"></span>Meta Ads Manager</div>
+      <div class="tool-item"><span class="tool-dot"></span>Google Analytics 4</div>
+      <div class="tool-item"><span class="tool-dot"></span>Google Tag Manager</div>
+      <div class="tool-item"><span class="tool-dot"></span>Google Search Console</div>
+      <div class="tool-item"><span class="tool-dot"></span>Facebook Pixel</div>
+      <div class="tool-item"><span class="tool-dot"></span>Conversion API (CAPI)</div>
+      <div class="tool-item"><span class="tool-dot"></span>SEMrush</div>
+      <div class="tool-item"><span class="tool-dot"></span>WordPress</div>
+      <div class="tool-item"><span class="tool-dot"></span>Shopify</div>
+      <div class="tool-item"><span class="tool-dot"></span>WhatsApp Business API</div>
+      <div class="tool-item"><span class="tool-dot"></span>AI Tools</div>
+    </div>
+  </div>
+</section>
 
+<!-- CONTACT PAGE -->
+<section class="contact-page" id="contact">
+  <div class="contact-page-inner">
+    <div class="contact-hero anim">
+      <span class="contact-tag">// Get in Touch</span>
+      <h2 class="contact-heading">Let's work<br><span>together.</span></h2>
+      <p class="contact-sub-text">Open to Digital Marketing, Performance Marketing, and Paid Media Specialist roles. I respond within 24 hours.</p>
+    </div>
+
+    <div class="contact-cards anim anim-d2">
+      <a href="mailto:sourabhmalage01@gmail.com" class="contact-card">
+        <div class="contact-card-icon">✉️</div>
+        <div>
+          <div class="contact-card-label">Email</div>
+          <div class="contact-card-value">sourabhmalage01@gmail.com</div>
+          <div class="contact-card-sub">Preferred contact method</div>
+        </div>
+      </a>
+      <a href="tel:+919021486526" class="contact-card">
+        <div class="contact-card-icon">📞</div>
+        <div>
+          <div class="contact-card-label">Phone / WhatsApp</div>
+          <div class="contact-card-value">+91 90214 86526</div>
+          <div class="contact-card-sub">Available 10am – 7pm IST</div>
+        </div>
+      </a>
+      <a href="https://www.linkedin.com/in/sourabh-malage-96921a114/" target="_blank" class="contact-card">
+        <div class="contact-card-icon">💼</div>
+        <div>
+          <div class="contact-card-label">LinkedIn</div>
+          <div class="contact-card-value">sourabh-malage</div>
+          <div class="contact-card-sub">Connect & message me</div>
+        </div>
+      </a>
+    </div>
+
+    <div class="contact-avail anim anim-d3">
+      <div class="avail-dot"></div>
+      <p class="avail-text"><strong>Currently available</strong> for new opportunities — full-time, contract, or freelance digital marketing roles in Pune or remote.</p>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2025 Sourabh Malage · Digital Marketing Specialist · Pune, India</p>
+  </footer>
+</section>
+
+<script>
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  document.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+    ring.style.left = e.clientX + 'px';
+    ring.style.top = e.clientY + 'px';
+  });
+
+  // Nav scroll
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // Scroll reveal
+  const anims = document.querySelectorAll('.anim');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  anims.forEach(el => obs.observe(el));
+
+  // Achievement tabs
+  document.querySelectorAll('.ach-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.ach-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.ach-panel').forEach(p => p.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById('tab-' + tab.dataset.tab).classList.add('active');
+    });
+  });
+</script>
 </body>
 </html>
