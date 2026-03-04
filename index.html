@@ -76,14 +76,18 @@ nav.scrolled {
   box-shadow: 0 2px 20px rgba(0,0,0,0.06);
 }
 .nav-logo {
-  font-family: 'Lora', serif;
-  font-weight: 700;
-  font-size: 20px;
-  letter-spacing: -0.3px;
-  color: var(--ink);
+  display: inline-flex;
+  align-items: center;
   text-decoration: none;
+  flex-shrink: 0;
 }
-.nav-logo span { color: var(--accent); }
+.nav-logo img {
+  height: 44px;
+  width: auto;
+  display: block;
+  transition: opacity 0.2s;
+}
+.nav-logo:hover img { opacity: 0.85; }
 .nav-right { display: flex; align-items: center; gap: 32px; }
 .nav-links { display: flex; gap: 32px; list-style: none; }
 .nav-links a {
@@ -201,11 +205,12 @@ header::after {
 }
 
 .hero-desc {
-  font-size: 16px;
+  font-size: 15px;
   color: rgba(255,255,255,0.5);
-  line-height: 1.85;
-  max-width: 460px;
-  font-weight: 300;
+  line-height: 1.6;
+  max-width: 520px;
+  font-weight: 400;
+  letter-spacing: 0.3px;
   margin-bottom: 40px;
   animation: fadeUp 0.7s 0.4s both;
 }
@@ -383,7 +388,7 @@ header::after {
 }
 .skill-card {
   background: var(--card);
-  padding: 40px 36px;
+  padding: 32px 28px;
   position: relative;
   overflow: hidden;
   transition: all 0.25s;
@@ -469,12 +474,14 @@ header::after {
 .ach-panel { display: none; }
 .ach-panel.active { display: block; }
 
-/* Gallery grid */
+/* ====== GALLERY — BANNER STYLE ====== */
 .gallery-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
+
+/* Featured (first) card — full width hero banner */
 .gallery-item {
   background: var(--card);
   border: 1px solid var(--border);
@@ -484,93 +491,245 @@ header::after {
   cursor: none;
 }
 .gallery-item:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 20px 48px var(--shadow);
+  box-shadow: 0 24px 64px rgba(26,77,143,0.15);
   border-color: var(--accent);
 }
-/* Image placeholder / upload zone */
+
+/* Row layout: image left, caption right */
+.gallery-item {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  min-height: 320px;
+}
+/* Alternating: even items flip layout */
+.gallery-item:nth-child(even) {
+  grid-template-columns: 300px 1fr;
+  direction: rtl;
+}
+.gallery-item:nth-child(even) > * { direction: ltr; }
+
+/* Full-width featured first card */
+.gallery-item.featured {
+  grid-template-columns: 1fr;
+  direction: ltr;
+  min-height: auto;
+}
+.gallery-item.featured .gallery-img-wrap {
+  aspect-ratio: 21/7;
+  height: auto;
+}
+.gallery-item.featured .gallery-caption {
+  padding: 28px 36px 32px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 24px;
+  align-items: start;
+  background: var(--card);
+}
+.gallery-item.featured .gallery-cap-main { grid-column: 1 / 3; }
+
 .gallery-img-wrap {
   width: 100%;
-  aspect-ratio: 16/10;
-  background: linear-gradient(135deg, #e8eef7 0%, #dce6f4 100%);
+  height: 100%;
+  min-height: 280px;
+  background: linear-gradient(135deg, #dce6f4 0%, #c8d8f0 100%);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   position: relative;
   overflow: hidden;
+  flex-shrink: 0;
 }
 .gallery-img-wrap img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: top left;
   display: block;
+  transition: transform 0.5s ease;
 }
-.gallery-placeholder {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  color: #8aa3c4;
-}
-.gallery-placeholder-icon { font-size: 32px; opacity: 0.5; }
-.gallery-placeholder-text { font-size: 12px; font-weight: 500; letter-spacing: 0.5px; text-align: center; opacity: 0.7; }
-.gallery-overlay {
+.gallery-item:hover .gallery-img-wrap img { transform: scale(1.02); }
+
+/* Zoom icon on hover */
+.gallery-zoom {
   position: absolute;
   inset: 0;
-  background: rgba(26,77,143,0.85);
+  background: rgba(26,77,143,0.7);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 10px;
   opacity: 0;
   transition: opacity 0.3s;
+  backdrop-filter: blur(2px);
 }
-.gallery-item:hover .gallery-overlay { opacity: 1; }
-.gallery-overlay-text { color: #fff; font-size: 13px; font-weight: 600; letter-spacing: 0.5px; }
-.gallery-overlay-sub { color: rgba(255,255,255,0.7); font-size: 11px; }
+.gallery-item:hover .gallery-zoom { opacity: 1; }
+.gallery-zoom-icon {
+  width: 56px; height: 56px;
+  background: rgba(255,255,255,0.15);
+  border: 2px solid rgba(255,255,255,0.6);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px;
+}
+.gallery-zoom-text { color: #fff; font-size: 13px; font-weight: 600; letter-spacing: 0.5px; }
 
-.gallery-caption { padding: 16px 18px 18px; }
+.gallery-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  color: #7a9cc4;
+  padding: 20px;
+  text-align: center;
+}
+.gallery-placeholder-icon { font-size: 40px; opacity: 0.4; }
+.gallery-placeholder-text { font-size: 13px; font-weight: 500; letter-spacing: 0.3px; opacity: 0.7; line-height: 1.5; }
+.gallery-placeholder-hint { font-size: 11px; opacity: 0.45; font-style: italic; }
+
+/* Caption side panel */
+.gallery-caption {
+  padding: 36px 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 12px;
+  background: var(--card);
+}
 .gallery-cap-tag {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 9px;
-  letter-spacing: 2px;
+  font-size: 10px;
+  letter-spacing: 3px;
   color: var(--accent);
   text-transform: uppercase;
-  margin-bottom: 5px;
 }
-.gallery-cap-title { font-family: 'Lora', serif; font-size: 15px; font-weight: 600; margin-bottom: 4px; line-height: 1.3; }
-.gallery-cap-desc { font-size: 12px; color: var(--muted); line-height: 1.5; font-weight: 300; }
-
-/* Result chip on gallery */
+.gallery-cap-title {
+  font-family: 'Lora', serif;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.3px;
+}
+.gallery-cap-desc {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.75;
+  font-weight: 300;
+}
 .result-chip {
-  position: absolute;
-  top: 10px; right: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   background: var(--accent);
   color: #fff;
   font-family: 'Lora', serif;
-  font-size: 13px;
+  font-size: 22px;
   font-weight: 700;
-  padding: 4px 10px;
-  letter-spacing: -0.3px;
-  z-index: 2;
+  padding: 8px 18px;
+  letter-spacing: -0.5px;
+  align-self: flex-start;
+  margin-top: 4px;
+}
+.result-chip-label {
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.8);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
 }
 
 /* Upload hint */
 .upload-hint {
-  margin-top: 32px;
-  padding: 20px 24px;
-  background: rgba(26,77,143,0.06);
-  border: 1.5px dashed rgba(26,77,143,0.25);
+  margin-top: 8px;
+  padding: 18px 24px;
+  background: rgba(26,77,143,0.05);
+  border: 1.5px dashed rgba(26,77,143,0.2);
   display: flex;
   align-items: center;
   gap: 14px;
   font-size: 13px;
   color: var(--accent);
   font-weight: 500;
+  line-height: 1.6;
 }
-.upload-hint-icon { font-size: 20px; flex-shrink: 0; }
+.upload-hint-icon { font-size: 18px; flex-shrink: 0; }
+
+/* ====== LIGHTBOX ====== */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.95);
+  z-index: 9000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+  padding: 40px;
+  cursor: none;
+}
+.lightbox.open {
+  opacity: 1;
+  pointer-events: all;
+}
+.lightbox-img-wrap {
+  max-width: 90vw;
+  max-height: 85vh;
+  position: relative;
+}
+.lightbox-img-wrap img {
+  max-width: 90vw;
+  max-height: 80vh;
+  object-fit: contain;
+  display: block;
+  box-shadow: 0 40px 120px rgba(0,0,0,0.8);
+}
+.lightbox-close {
+  position: fixed;
+  top: 24px; right: 28px;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: #fff;
+  font-size: 24px;
+  width: 48px; height: 48px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: none;
+  transition: all 0.2s;
+  border-radius: 50%;
+}
+.lightbox-close:hover { background: rgba(255,255,255,0.2); }
+.lightbox-caption {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 12px 28px;
+  text-align: center;
+  backdrop-filter: blur(8px);
+  white-space: nowrap;
+}
+
+@media (max-width: 960px) {
+  .gallery-item,
+  .gallery-item:nth-child(even) { grid-template-columns: 1fr; direction: ltr; min-height: auto; }
+  .gallery-img-wrap { min-height: 240px; }
+  .gallery-item.featured .gallery-img-wrap { aspect-ratio: 16/7; }
+  .gallery-item.featured .gallery-caption { grid-template-columns: 1fr; }
+  .gallery-item.featured .gallery-cap-main { grid-column: 1; }
+}
+@media (max-width: 600px) {
+  .gallery-img-wrap { min-height: 200px; }
+  .gallery-caption { padding: 24px 20px; }
+}
 
 /* ====== PROJECTS ====== */
 .projects-grid {
@@ -612,18 +771,62 @@ header::after {
 .project-link:hover { gap: 10px; }
 
 /* ====== TOOLS ====== */
-.tools-grid { display: flex; flex-wrap: wrap; gap: 10px; }
-.tool-item {
-  display: flex; align-items: center; gap: 10px;
-  background: var(--card);
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 2px;
+  background: var(--border);
   border: 1px solid var(--border);
-  padding: 12px 20px;
-  font-size: 13px; font-weight: 600;
-  transition: all 0.2s;
-  white-space: nowrap;
 }
-.tool-item:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); box-shadow: 0 6px 20px var(--shadow); }
-.tool-dot { width: 7px; height: 7px; background: var(--accent); border-radius: 50%; flex-shrink: 0; }
+.tool-item {
+  background: var(--card);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 28px 16px 22px;
+  text-align: center;
+  transition: all 0.25s;
+  position: relative;
+  overflow: hidden;
+}
+.tool-item::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.3s;
+}
+.tool-item:hover::after { transform: scaleX(1); }
+.tool-item:hover { background: var(--warm); transform: translateY(-3px); box-shadow: 0 10px 28px var(--shadow); z-index: 1; }
+.tool-logo {
+  width: 44px; height: 44px;
+  object-fit: contain;
+  display: block;
+  transition: transform 0.25s;
+}
+.tool-item:hover .tool-logo { transform: scale(1.1); }
+.tool-logo-svg {
+  width: 44px; height: 44px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.tool-name {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--muted);
+  letter-spacing: 0.3px;
+  line-height: 1.3;
+  text-align: center;
+  transition: color 0.2s;
+}
+.tool-item:hover .tool-name { color: var(--accent); }
+@media (max-width: 960px) { .tools-grid { grid-template-columns: repeat(4, 1fr); } }
+@media (max-width: 600px) { .tools-grid { grid-template-columns: repeat(3, 1fr); } }
 
 /* ====== CONTACT PAGE ====== */
 .contact-page { background: var(--ink); }
@@ -719,7 +922,181 @@ footer {
   letter-spacing: 1px;
 }
 
-/* ====== ANIMATIONS ====== */
+/* ====== WEB PROJECTS IFRAME ====== */
+.web-projects-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+.web-project-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  transition: box-shadow 0.3s;
+}
+.web-project-card:hover {
+  box-shadow: 0 16px 48px rgba(26,77,143,0.12);
+  border-color: var(--accent);
+}
+.web-project-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 24px 28px 20px;
+  border-bottom: 1px solid var(--border);
+}
+.web-project-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--accent);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.web-project-title {
+  font-family: 'Lora', serif;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  margin-bottom: 6px;
+}
+.web-project-desc {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.65;
+  font-weight: 300;
+}
+.web-visit-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--accent);
+  color: #fff;
+  text-decoration: none;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  padding: 9px 16px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: all 0.2s;
+}
+.web-visit-btn:hover { background: var(--accent2); transform: translateY(-1px); }
+
+/* Browser chrome */
+.iframe-wrap {
+  background: #1e1e1e;
+}
+.iframe-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  background: #2a2a2a;
+  border-bottom: 1px solid #3a3a3a;
+}
+.iframe-dots {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+}
+.iframe-dots span {
+  width: 11px; height: 11px;
+  border-radius: 50%;
+  display: block;
+}
+.iframe-dots span:nth-child(1) { background: #ff5f57; }
+.iframe-dots span:nth-child(2) { background: #febc2e; }
+.iframe-dots span:nth-child(3) { background: #28c840; }
+.iframe-url {
+  flex: 1;
+  background: #3a3a3a;
+  border-radius: 4px;
+  padding: 4px 12px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: rgba(255,255,255,0.55);
+  letter-spacing: 0.2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.iframe-open {
+  color: rgba(255,255,255,0.4);
+  font-size: 16px;
+  text-decoration: none;
+  flex-shrink: 0;
+  transition: color 0.2s;
+  line-height: 1;
+}
+.iframe-open:hover { color: #fff; }
+.iframe-body {
+  position: relative;
+  height: 480px;
+  overflow: hidden;
+}
+.iframe-body iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+  pointer-events: none;
+}
+.iframe-blocker {
+  position: absolute;
+  inset: 0;
+  background: rgba(26,77,143,0.0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s;
+  z-index: 2;
+}
+.iframe-blocker:hover { background: rgba(26,77,143,0.08); }
+.iframe-blocker-inner {
+  background: rgba(0,0,0,0.65);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: #fff;
+  padding: 12px 22px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.iframe-blocker:hover .iframe-blocker-inner { opacity: 1; }
+.iframe-error {
+  position: absolute;
+  inset: 0;
+  background: var(--warm);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  z-index: 3;
+}
+.iframe-error-icon { font-size: 36px; }
+.iframe-error-text { font-size: 14px; color: var(--muted); font-weight: 500; }
+
+@media (max-width: 960px) {
+  .web-projects-grid { grid-template-columns: 1fr; }
+  .iframe-body { height: 380px; }
+}
+@media (max-width: 600px) {
+  .iframe-body { height: 300px; }
+  .web-project-header { flex-direction: column; }
+}
+
+
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(28px); }
   to   { opacity: 1; transform: translateY(0); }
@@ -737,7 +1114,8 @@ footer {
   .hero-inner { grid-template-columns: 1fr; gap: 48px; padding: 40px 0 80px; }
   .hero-card { display: none; }
   .about-grid { grid-template-columns: 1fr; gap: 48px; }
-  .skills-grid, .projects-grid { grid-template-columns: 1fr; }
+  .skills-grid { grid-template-columns: repeat(2, 1fr); }
+  .projects-grid { grid-template-columns: 1fr; }
   .gallery-grid { grid-template-columns: repeat(2, 1fr); }
   .metrics-inner { grid-template-columns: repeat(2, 1fr); gap: 32px; }
   .metric-item { border-right: none; padding: 0; }
@@ -762,7 +1140,9 @@ footer {
 
 <!-- NAV -->
 <nav id="navbar">
-  <a href="#top" class="nav-logo">SM<span>.</span></a>
+  <a href="#top" class="nav-logo">
+    <img src="1772532400431_Gemini_Generated_Image_y6vausy6vausy6va.png" alt="Sourabh Malage Logo" style="height: 44px; width: auto; display: block;">
+  </a>
   <div class="nav-right">
     <ul class="nav-links">
       <li><a href="#about">About</a></li>
@@ -771,7 +1151,7 @@ footer {
       <li><a href="#projects">Projects</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
-    <a href="https://drive.google.com/file/d/1foJTUHrCBD8ZR-nQL4v6T9WBWCqimvbA/view?usp=sharing" download class="nav-resume-btn">
+    <a href="Sourabh_Malage_Resume.pdf" download class="nav-resume-btn">
       <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 16l-5-5 1.41-1.41L11 13.17V4h2v9.17l2.59-2.58L17 11l-5 5zm-7 3h14v2H5v-2z"/></svg>
       Download CV
     </a>
@@ -791,7 +1171,7 @@ footer {
         <span class="outline">Malage</span>
       </h1>
       <p class="hero-desc">
-        Driving measurable growth through Google Ads, Meta Ads, SEO, and full-funnel conversion strategy. Performance-first marketer with 8+ years of professional experience and a data-driven approach to every campaign.
+        Performance Marketing Specialist | Google Ads &amp; Meta Ads | SEO Optimization | Conversion-Focused Campaigns
       </p>
       <div class="hero-cta">
         <a href="#contact" class="btn-primary">Get in Touch ↗</a>
@@ -805,16 +1185,16 @@ footer {
         <div class="hero-stat-label">Ad spend managed, Google & Meta</div>
       </div>
       <div class="hero-stat">
-        <div class="hero-stat-value">200%+</div>
-        <div class="hero-stat-label">Organic traffic growth achieved</div>
+        <div class="hero-stat-value">15×</div>
+        <div class="hero-stat-label">Organic visibility growth in 6 months</div>
       </div>
       <div class="hero-stat">
         <div class="hero-stat-value">40%</div>
         <div class="hero-stat-label">Revenue growth via lead gen</div>
       </div>
       <div class="hero-stat">
-        <div class="hero-stat-value">8 yrs</div>
-        <div class="hero-stat-label">Total professional experience</div>
+        <div class="hero-stat-value">2+</div>
+        <div class="hero-stat-label">Years growing brands digitally</div>
       </div>
     </div>
   </div>
@@ -824,9 +1204,9 @@ footer {
 <div class="metrics-strip">
   <div class="metrics-inner">
     <div class="metric-item"><div class="metric-value">₹5L+</div><div class="metric-label">Ad Budget Managed<br>Google Ads & Meta Ads</div></div>
-    <div class="metric-item"><div class="metric-value">200%</div><div class="metric-label">Organic Traffic Growth<br>via SEO Strategy</div></div>
+    <div class="metric-item"><div class="metric-value">15×</div><div class="metric-label">Organic Visibility Growth<br>in 6 Months</div></div>
     <div class="metric-item"><div class="metric-value">40%</div><div class="metric-label">Revenue Growth<br>via Market Research</div></div>
-    <div class="metric-item"><div class="metric-value">8+</div><div class="metric-label">Years Professional<br>Experience</div></div>
+    <div class="metric-item"><div class="metric-value">2+</div><div class="metric-label">Years Growing<br>Brands Digitally</div></div>
   </div>
 </div>
 
@@ -910,71 +1290,51 @@ footer {
     <div class="ach-panel active" id="tab-ads">
       <div class="gallery-grid">
 
-        <div class="gallery-item">
+        <!-- BANNER 1: Google Ads — image left, caption right -->
+        <div class="gallery-item" onclick="openLightbox('https://drive.google.com/uc?export=view&id=16KwuYJD0CGVHaVBbuIK_xYXHknkgJN_d','Google Ads Campaign Dashboard')">
           <div class="gallery-img-wrap">
-            <!-- Replace src with your actual screenshot path e.g. "screenshots/google-ads-roas.png" -->
-            <img src="screenshots/google-ads-dashboard.png" alt="Google Ads Dashboard" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" style="display:none;">
-            <div class="gallery-placeholder">
+            <img src="https://drive.google.com/uc?export=view&id=16KwuYJD0CGVHaVBbuIK_xYXHknkgJN_d" alt="Google Ads Dashboard"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="gallery-placeholder" style="display:none;">
               <div class="gallery-placeholder-icon">📸</div>
-              <div class="gallery-placeholder-text">Add screenshot:<br>google-ads-dashboard.png</div>
+              <div class="gallery-placeholder-text">Google Ads Dashboard Screenshot</div>
+              <div class="gallery-placeholder-hint">Image loading from Google Drive…</div>
             </div>
-            <div class="result-chip">₹5L+ Spend</div>
-            <div class="gallery-overlay">
-              <div class="gallery-overlay-text">Google Ads Dashboard</div>
-              <div class="gallery-overlay-sub">View Campaign Results</div>
+            <div class="gallery-zoom">
+              <div class="gallery-zoom-icon">🔍</div>
+              <div class="gallery-zoom-text">Click to expand</div>
             </div>
           </div>
           <div class="gallery-caption">
-            <div class="gallery-cap-tag">Google Ads</div>
+            <div class="gallery-cap-tag">📈 Google Ads</div>
             <div class="gallery-cap-title">Campaign Overview Dashboard</div>
-            <div class="gallery-cap-desc">Monthly campaign performance showing ROAS, CTR, and CPA metrics across e-commerce campaigns.</div>
+            <div class="gallery-cap-desc">Managed and optimized Google Ads campaigns across Display and Search formats to drive targeted traffic and lead generation through structured targeting and performance optimization.</div>
           </div>
         </div>
 
-        <div class="gallery-item">
+        <!-- BANNER 2: Meta Ads — image right, caption left (alternating) -->
+        <!-- BANNER 2: Meta Ads -->
+        <div class="gallery-item" onclick="openLightbox('https://drive.google.com/uc?export=view&id=1kzPyw0Te2AmqzXpR_GfTxsp3Rhnl_XNG','Meta Ads Conversion-Focused Campaign Execution')">
           <div class="gallery-img-wrap">
-            <img src="screenshots/meta-ads-results.png" alt="Meta Ads Results" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" style="display:none;">
-            <div class="gallery-placeholder">
+            <img src="https://drive.google.com/uc?export=view&id=1kzPyw0Te2AmqzXpR_GfTxsp3Rhnl_XNG" alt="Meta Ads Results"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="gallery-placeholder" style="display:none;">
               <div class="gallery-placeholder-icon">📸</div>
-              <div class="gallery-placeholder-text">Add screenshot:<br>meta-ads-results.png</div>
+              <div class="gallery-placeholder-text">Meta Ads Manager Screenshot</div>
+              <div class="gallery-placeholder-hint">Image loading from Google Drive…</div>
             </div>
-            <div class="result-chip">CPA Optimised</div>
-            <div class="gallery-overlay">
-              <div class="gallery-overlay-text">Meta Ads Results</div>
-              <div class="gallery-overlay-sub">View Ad Performance</div>
+            <div class="gallery-zoom">
+              <div class="gallery-zoom-icon">🔍</div>
+              <div class="gallery-zoom-text">Click to expand</div>
             </div>
           </div>
           <div class="gallery-caption">
-            <div class="gallery-cap-tag">Meta Ads</div>
-            <div class="gallery-cap-title">Lead Generation Campaign Results</div>
-            <div class="gallery-cap-desc">Cost per lead reduction achieved through audience segmentation and creative A/B testing.</div>
+            <div class="gallery-cap-tag">📱 Meta Ads Manager</div>
+            <div class="gallery-cap-title">Conversion-Focused Campaign Execution</div>
+            <div class="gallery-cap-desc">Managed and optimized Meta Ads campaigns for audience targeting, retargeting, and conversion-focused performance across lead generation and e-commerce objectives.</div>
           </div>
         </div>
 
-        <div class="gallery-item">
-          <div class="gallery-img-wrap">
-            <img src="screenshots/ab-test-results.png" alt="A/B Test Results" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" style="display:none;">
-            <div class="gallery-placeholder">
-              <div class="gallery-placeholder-icon">📸</div>
-              <div class="gallery-placeholder-text">Add screenshot:<br>ab-test-results.png</div>
-            </div>
-            <div class="result-chip">CTR Improved</div>
-            <div class="gallery-overlay">
-              <div class="gallery-overlay-text">A/B Test Comparison</div>
-              <div class="gallery-overlay-sub">Creative Testing Results</div>
-            </div>
-          </div>
-          <div class="gallery-caption">
-            <div class="gallery-cap-tag">Creative Testing</div>
-            <div class="gallery-cap-title">A/B Test — Creative Variants</div>
-            <div class="gallery-cap-desc">Side-by-side comparison of winning vs losing creatives showing CTR and conversion lift.</div>
-          </div>
-        </div>
-
-      </div>
-      <div class="upload-hint">
-        <span class="upload-hint-icon">💡</span>
-        <span>To add your screenshots: save images to a <strong>screenshots/</strong> folder alongside this HTML file and update the <code>src</code> paths above to match your filenames.</span>
       </div>
     </div>
 
@@ -982,70 +1342,44 @@ footer {
     <div class="ach-panel" id="tab-seo">
       <div class="gallery-grid">
 
-        <div class="gallery-item">
+        <!-- SEO Card 1: Search Discoverability -->
+        <div class="gallery-item" onclick="openLightbox('https://drive.google.com/uc?export=view&id=1w2iiz5MvVIZbCK5n5xNdUL4_-wAfaaBW','Search Discoverability Improved')">
           <div class="gallery-img-wrap">
-            <img src="screenshots/semrush-traffic-growth.png" alt="SEMrush Traffic" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" style="display:none;">
-            <div class="gallery-placeholder">
+            <img src="https://drive.google.com/uc?export=view&id=1w2iiz5MvVIZbCK5n5xNdUL4_-wAfaaBW" alt="Search Discoverability"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="gallery-placeholder" style="display:none;">
               <div class="gallery-placeholder-icon">📸</div>
-              <div class="gallery-placeholder-text">Add screenshot:<br>semrush-traffic-growth.png</div>
+              <div class="gallery-placeholder-text">SEO Performance Screenshot</div>
+              <div class="gallery-placeholder-hint">Image loading from Google Drive…</div>
             </div>
-            <div class="result-chip">200%+ Growth</div>
-            <div class="gallery-overlay">
-              <div class="gallery-overlay-text">SEMrush Traffic Report</div>
-              <div class="gallery-overlay-sub">Organic Growth Data</div>
-            </div>
+            <div class="gallery-zoom"><div class="gallery-zoom-icon">🔍</div><div class="gallery-zoom-text">Click to expand</div></div>
           </div>
           <div class="gallery-caption">
-            <div class="gallery-cap-tag">SEMrush</div>
-            <div class="gallery-cap-title">Organic Traffic Growth — 200%+</div>
-            <div class="gallery-cap-desc">From ~12 to ~400 monthly organic visitors through targeted SEO strategy implementation.</div>
+            <div class="gallery-cap-tag">🔍 SEO Optimization</div>
+            <div class="gallery-cap-title">Search Discoverability Improved</div>
+            <div class="gallery-cap-desc">Executed on-page and technical SEO optimization including content alignment, meta optimization, and website audit corrections to improve search engine discoverability and indexing readiness across targeted pages.</div>
           </div>
         </div>
 
-        <div class="gallery-item">
+        <!-- SEO Card 2: Organic Search Presence -->
+        <div class="gallery-item" onclick="openLightbox('screenshots/gsc-rankings.png','Organic Search Presence')">
           <div class="gallery-img-wrap">
-            <img src="screenshots/gsc-rankings.png" alt="GSC Rankings" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" style="display:none;">
-            <div class="gallery-placeholder">
+            <img src="screenshots/gsc-rankings.png" alt="Organic Search Presence"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="gallery-placeholder" style="display:none;">
               <div class="gallery-placeholder-icon">📸</div>
-              <div class="gallery-placeholder-text">Add screenshot:<br>gsc-rankings.png</div>
+              <div class="gallery-placeholder-text">Your Google Search Console screenshot</div>
+              <div class="gallery-placeholder-hint">Save as: screenshots/gsc-rankings.png</div>
             </div>
-            <div class="result-chip">Top Rankings</div>
-            <div class="gallery-overlay">
-              <div class="gallery-overlay-text">Google Search Console</div>
-              <div class="gallery-overlay-sub">Keyword Rankings</div>
-            </div>
+            <div class="gallery-zoom"><div class="gallery-zoom-icon">🔍</div><div class="gallery-zoom-text">Click to expand</div></div>
           </div>
           <div class="gallery-caption">
-            <div class="gallery-cap-tag">Google Search Console</div>
-            <div class="gallery-cap-title">Keyword Position Improvements</div>
-            <div class="gallery-cap-desc">Search Console report showing improved average position and click-through rate across target keywords.</div>
+            <div class="gallery-cap-tag">🌐 Search Console</div>
+            <div class="gallery-cap-title">Organic Search Presence</div>
+            <div class="gallery-cap-desc">Improved website search presence through keyword-focused content optimization and structured on-site SEO practices supporting organic discoverability for relevant queries.</div>
           </div>
         </div>
 
-        <div class="gallery-item">
-          <div class="gallery-img-wrap">
-            <img src="screenshots/ga4-organic-traffic.png" alt="GA4 Traffic" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" style="display:none;">
-            <div class="gallery-placeholder">
-              <div class="gallery-placeholder-icon">📸</div>
-              <div class="gallery-placeholder-text">Add screenshot:<br>ga4-organic-traffic.png</div>
-            </div>
-            <div class="result-chip">GA4 Data</div>
-            <div class="gallery-overlay">
-              <div class="gallery-overlay-text">GA4 Organic Report</div>
-              <div class="gallery-overlay-sub">Session & Engagement Data</div>
-            </div>
-          </div>
-          <div class="gallery-caption">
-            <div class="gallery-cap-tag">Google Analytics 4</div>
-            <div class="gallery-cap-title">Organic Session Growth</div>
-            <div class="gallery-cap-desc">GA4 report showing sustained organic traffic growth and improved engagement metrics post-SEO work.</div>
-          </div>
-        </div>
-
-      </div>
-      <div class="upload-hint">
-        <span class="upload-hint-icon">💡</span>
-        <span>Add your SEMrush, GSC, and GA4 screenshots to the <strong>screenshots/</strong> folder and update the file paths to display your results here.</span>
       </div>
     </div>
 
@@ -1053,138 +1387,127 @@ footer {
     <div class="ach-panel" id="tab-social">
       <div class="gallery-grid">
 
-        <div class="gallery-item">
+        <!-- Social Card 1: sapien_kid -->
+        <div class="gallery-item" onclick="openLightbox('screenshots/sapien-kid-ig.png','@sapien_kid — Account Management')">
           <div class="gallery-img-wrap">
-            <img src="screenshots/sapien-kid-ig.png" alt="Sapien Kid Instagram" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" style="display:none;">
-            <div class="gallery-placeholder">
+            <img src="screenshots/sapien-kid-ig.png" alt="@sapien_kid Instagram"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="gallery-placeholder" style="display:none;">
               <div class="gallery-placeholder-icon">📸</div>
-              <div class="gallery-placeholder-text">Add screenshot:<br>sapien-kid-ig.png</div>
+              <div class="gallery-placeholder-text">Screenshot of @sapien_kid Instagram profile or post insights</div>
+              <div class="gallery-placeholder-hint">Save as: screenshots/sapien-kid-ig.png</div>
             </div>
-            <div class="gallery-overlay">
-              <div class="gallery-overlay-text">@sapien_kid</div>
-              <div class="gallery-overlay-sub">Content & Growth</div>
-            </div>
+            <div class="gallery-zoom"><div class="gallery-zoom-icon">🔍</div><div class="gallery-zoom-text">Click to expand</div></div>
           </div>
           <div class="gallery-caption">
-            <div class="gallery-cap-tag">Instagram</div>
-            <div class="gallery-cap-title">@sapien_kid — Content Strategy</div>
-            <div class="gallery-cap-desc">Social media content planning, post creation, and engagement strategy for this account.</div>
+            <div class="gallery-cap-tag">📱 Instagram Optimization</div>
+            <div class="gallery-cap-title">Account Management · Content & Growth</div>
+            <div class="gallery-cap-desc">Content strategy, post creation, caption writing, and scheduling for this Instagram account. Focused on reach, engagement, and follower growth.</div>
           </div>
         </div>
 
-        <div class="gallery-item">
+        <!-- Social Card 2: happybucket_saya -->
+        <div class="gallery-item" onclick="openLightbox('screenshots/happybucket-ig.png','@happybucket_saya — Content Strategy Execution')">
           <div class="gallery-img-wrap">
-            <img src="screenshots/happybucket-ig.png" alt="Happy Bucket Instagram" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" style="display:none;">
-            <div class="gallery-placeholder">
+            <img src="screenshots/happybucket-ig.png" alt="@happybucket_saya Instagram"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="gallery-placeholder" style="display:none;">
               <div class="gallery-placeholder-icon">📸</div>
-              <div class="gallery-placeholder-text">Add screenshot:<br>happybucket-ig.png</div>
+              <div class="gallery-placeholder-text">Screenshot of @happybucket_saya profile or insights</div>
+              <div class="gallery-placeholder-hint">Save as: screenshots/happybucket-ig.png</div>
             </div>
-            <div class="gallery-overlay">
-              <div class="gallery-overlay-text">@happybucket_saya</div>
-              <div class="gallery-overlay-sub">Content Work</div>
-            </div>
+            <div class="gallery-zoom"><div class="gallery-zoom-icon">🔍</div><div class="gallery-zoom-text">Click to expand</div></div>
           </div>
           <div class="gallery-caption">
-            <div class="gallery-cap-tag">Instagram</div>
-            <div class="gallery-cap-title">@happybucket_saya — Content Calendar</div>
-            <div class="gallery-cap-desc">Monthly content calendar execution, caption writing, and performance analytics for this brand account.</div>
+            <div class="gallery-cap-tag">📱 Content Execution</div>
+            <div class="gallery-cap-title">Content Strategy Execution</div>
+            <div class="gallery-cap-desc">Social Media Strategy & Execution</div>
           </div>
         </div>
 
-        <div class="gallery-item">
-          <div class="gallery-img-wrap">
-            <img src="screenshots/stockguru-ig.png" alt="Trade With StockGuru Instagram" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" style="display:none;">
-            <div class="gallery-placeholder">
-              <div class="gallery-placeholder-icon">📸</div>
-              <div class="gallery-placeholder-text">Add screenshot:<br>stockguru-ig.png</div>
-            </div>
-            <div class="gallery-overlay">
-              <div class="gallery-overlay-text">@tradewithstockguru</div>
-              <div class="gallery-overlay-sub">Reach & Engagement</div>
-            </div>
-          </div>
-          <div class="gallery-caption">
-            <div class="gallery-cap-tag">Instagram</div>
-            <div class="gallery-cap-title">@tradewithstockguru — Finance Content</div>
-            <div class="gallery-cap-desc">Educational finance content creation, post design, and audience growth strategy for this trading brand.</div>
-          </div>
-        </div>
-
-      </div>
-      <div class="upload-hint">
-        <span class="upload-hint-icon">💡</span>
-        <span>Add your Instagram account screenshots (profile page, post insights, reach stats) to the <strong>screenshots/</strong> folder to showcase your social media work.</span>
       </div>
     </div>
 
     <!-- WEB PROJECTS TAB -->
     <div class="ach-panel" id="tab-web">
-      <div class="gallery-grid">
+      <div class="web-projects-grid">
 
-        <div class="gallery-item">
-          <div class="gallery-img-wrap">
-            <img src="screenshots/stockpriceguru-site.png" alt="StockPriceGuru Website" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" style="display:none;">
-            <div class="gallery-placeholder">
-              <div class="gallery-placeholder-icon">📸</div>
-              <div class="gallery-placeholder-text">Add screenshot:<br>stockpriceguru-site.png</div>
+        <!-- StockPriceGuru -->
+        <div class="web-project-card">
+          <div class="web-project-header">
+            <div class="web-project-meta">
+              <div class="web-project-tag">🌐 WordPress</div>
+              <div class="web-project-title">StockPriceGuru.com</div>
+              <div class="web-project-desc">Finance information website with SEO-optimised architecture, conversion-focused layout, and GA4 tracking integration.</div>
             </div>
-            <div class="result-chip">Live Site</div>
-            <div class="gallery-overlay">
-              <div class="gallery-overlay-text">stockpriceguru.com</div>
-              <div class="gallery-overlay-sub">Visit Live Site ↗</div>
-            </div>
+            <a href="https://stockpriceguru.com/" target="_blank" class="web-visit-btn">Visit Site ↗</a>
           </div>
-          <div class="gallery-caption">
-            <div class="gallery-cap-tag">WordPress</div>
-            <div class="gallery-cap-title">StockPriceGuru.com</div>
-            <div class="gallery-cap-desc">Built and launched WordPress site with SEO-optimised structure and conversion-focused layout.</div>
+          <div class="iframe-wrap">
+            <div class="iframe-toolbar">
+              <div class="iframe-dots"><span></span><span></span><span></span></div>
+              <div class="iframe-url">stockpriceguru.com</div>
+              <a href="https://stockpriceguru.com/" target="_blank" class="iframe-open">⤢</a>
+            </div>
+            <div class="iframe-body">
+              <iframe src="https://stockpriceguru.com/"
+                loading="lazy"
+                title="StockPriceGuru.com"
+                sandbox="allow-scripts allow-same-origin allow-forms"
+                scrolling="yes">
+              </iframe>
+              <div class="iframe-blocker" onclick="this.style.display='none'; this.previousElementSibling.style.pointerEvents='all';">
+                <div class="iframe-blocker-inner">
+                  <div class="iframe-blocker-icon">🖱️</div>
+                  <div class="iframe-blocker-text">Click to interact</div>
+                </div>
+              </div>
+              <div class="iframe-error" style="display:none;">
+                <div class="iframe-error-icon">🔒</div>
+                <div class="iframe-error-text">This site restricts embedding</div>
+                <a href="https://stockpriceguru.com/" target="_blank" class="btn-primary" style="font-size:12px;padding:10px 20px;margin-top:12px;">Open in New Tab ↗</a>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div class="gallery-item">
-          <div class="gallery-img-wrap">
-            <img src="screenshots/opulencegroup-site.png" alt="Opulence Group Website" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" style="display:none;">
-            <div class="gallery-placeholder">
-              <div class="gallery-placeholder-icon">📸</div>
-              <div class="gallery-placeholder-text">Add screenshot:<br>opulencegroup-site.png</div>
+        <!-- OpulenceGroup -->
+        <div class="web-project-card">
+          <div class="web-project-header">
+            <div class="web-project-meta">
+              <div class="web-project-tag">🌐 WordPress</div>
+              <div class="web-project-title">OpulenceGroup.in</div>
+              <div class="web-project-desc">Business website built for lead generation with service-focused landing pages and performance tracking via Google Tag Manager.</div>
             </div>
-            <div class="result-chip">Live Site</div>
-            <div class="gallery-overlay">
-              <div class="gallery-overlay-text">opulencegroup.in</div>
-              <div class="gallery-overlay-sub">Visit Live Site ↗</div>
-            </div>
+            <a href="https://opulencegroup.in/" target="_blank" class="web-visit-btn">Visit Site ↗</a>
           </div>
-          <div class="gallery-caption">
-            <div class="gallery-cap-tag">WordPress</div>
-            <div class="gallery-cap-title">OpulenceGroup.in</div>
-            <div class="gallery-cap-desc">Business website with lead generation focus, performance tracking, and SEO-optimised content architecture.</div>
-          </div>
-        </div>
-
-        <div class="gallery-item">
-          <div class="gallery-img-wrap">
-            <img src="screenshots/whatsapp-automation.png" alt="WhatsApp Automation" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" style="display:none;">
-            <div class="gallery-placeholder">
-              <div class="gallery-placeholder-icon">📸</div>
-              <div class="gallery-placeholder-text">Add screenshot:<br>whatsapp-automation.png</div>
+          <div class="iframe-wrap">
+            <div class="iframe-toolbar">
+              <div class="iframe-dots"><span></span><span></span><span></span></div>
+              <div class="iframe-url">opulencegroup.in</div>
+              <a href="https://opulencegroup.in/" target="_blank" class="iframe-open">⤢</a>
             </div>
-            <div class="result-chip">Automated</div>
-            <div class="gallery-overlay">
-              <div class="gallery-overlay-text">WhatsApp API Workflow</div>
-              <div class="gallery-overlay-sub">Lead Nurturing Flow</div>
+            <div class="iframe-body">
+              <iframe src="https://opulencegroup.in/"
+                loading="lazy"
+                title="OpulenceGroup.in"
+                sandbox="allow-scripts allow-same-origin allow-forms"
+                scrolling="yes">
+              </iframe>
+              <div class="iframe-blocker" onclick="this.style.display='none'; this.previousElementSibling.style.pointerEvents='all';">
+                <div class="iframe-blocker-inner">
+                  <div class="iframe-blocker-icon">🖱️</div>
+                  <div class="iframe-blocker-text">Click to interact</div>
+                </div>
+              </div>
+              <div class="iframe-error" style="display:none;">
+                <div class="iframe-error-icon">🔒</div>
+                <div class="iframe-error-text">This site restricts embedding</div>
+                <a href="https://opulencegroup.in/" target="_blank" class="btn-primary" style="font-size:12px;padding:10px 20px;margin-top:12px;">Open in New Tab ↗</a>
+              </div>
             </div>
-          </div>
-          <div class="gallery-caption">
-            <div class="gallery-cap-tag">Automation</div>
-            <div class="gallery-cap-title">WhatsApp Business API — Lead Flow</div>
-            <div class="gallery-cap-desc">Chatbot workflow design for automated lead nurturing, follow-ups, and sales team handoff.</div>
           </div>
         </div>
 
-      </div>
-      <div class="upload-hint">
-        <span class="upload-hint-icon">💡</span>
-        <span>Add screenshots of your live websites and automation workflows to the <strong>screenshots/</strong> folder to visually demonstrate your development work.</span>
       </div>
     </div>
 
@@ -1213,7 +1536,7 @@ footer {
         <h3 class="project-title">Organic Traffic Turnaround — IT Solutions Brand</h3>
         <p class="project-desc">Inherited a near-invisible website and executed a full SEO strategy: technical audit, on-page overhaul, keyword mapping, and off-page link acquisition. Transformed it into a consistent lead-generating channel.</p>
         <div class="project-result">
-          <span class="project-num">200%+</span>
+          <span class="project-num">15×</span>
           <span class="project-num-label">Traffic growth<br>~12 → ~400 monthly organic visitors</span>
         </div>
       </div>
@@ -1247,18 +1570,167 @@ footer {
       <div class="section-line"></div>
     </div>
     <div class="tools-grid anim anim-d1">
-      <div class="tool-item"><span class="tool-dot"></span>Google Ads</div>
-      <div class="tool-item"><span class="tool-dot"></span>Meta Ads Manager</div>
-      <div class="tool-item"><span class="tool-dot"></span>Google Analytics 4</div>
-      <div class="tool-item"><span class="tool-dot"></span>Google Tag Manager</div>
-      <div class="tool-item"><span class="tool-dot"></span>Google Search Console</div>
-      <div class="tool-item"><span class="tool-dot"></span>Facebook Pixel</div>
-      <div class="tool-item"><span class="tool-dot"></span>Conversion API (CAPI)</div>
-      <div class="tool-item"><span class="tool-dot"></span>SEMrush</div>
-      <div class="tool-item"><span class="tool-dot"></span>WordPress</div>
-      <div class="tool-item"><span class="tool-dot"></span>Shopify</div>
-      <div class="tool-item"><span class="tool-dot"></span>WhatsApp Business API</div>
-      <div class="tool-item"><span class="tool-dot"></span>AI Tools</div>
+
+      <!-- Google Ads -->
+      <div class="tool-item">
+        <div class="tool-logo-svg">
+          <svg width="44" height="44" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+            <path d="M14.4 30.6L5.6 15.4A4 4 0 0112.5 11l8.8 15.2z" fill="#FBBC04"/>
+            <path d="M33.6 30.6l8.8-15.2A4 4 0 0135.5 11l-8.8 15.2z" fill="#4285F4"/>
+            <circle cx="24" cy="36" r="5.5" fill="#34A853"/>
+            <circle cx="8.5" cy="15.5" r="5.5" fill="#EA4335"/>
+            <circle cx="39.5" cy="15.5" r="5.5" fill="#EA4335"/>
+          </svg>
+        </div>
+        <span class="tool-name">Google Ads</span>
+      </div>
+
+      <!-- Meta Ads -->
+      <div class="tool-item">
+        <div class="tool-logo-svg">
+          <svg width="44" height="44" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="metaGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#0082fb"/>
+                <stop offset="100%" style="stop-color:#0866ff"/>
+              </linearGradient>
+            </defs>
+            <path d="M6 24c0-4.5 1.8-8 4.5-10C12.7 12.2 15.5 12 18 13.5c2 1.1 3.5 3 5 5.5 1 1.7 2 4 3 6.5 1-2.5 2-4.8 3-6.5 1.5-2.5 3-4.4 5-5.5 2.5-1.5 5.3-1.3 7.5.5C44.2 16 46 19.5 46 24c0 4.2-1.5 7.5-4 9.5-2 1.6-4.5 2-6.5.5-1.5-1-2.5-2.8-4-5.5L30 25.5l-3-5c-.5-.8-1-1.5-1.5-2l-1.5 2-3 5-1.5 3c-1.5 2.7-2.5 4.5-4 5.5-2 1.5-4.5 1.1-6.5-.5C7.5 31.5 6 28.2 6 24z" fill="url(#metaGrad)"/>
+          </svg>
+        </div>
+        <span class="tool-name">Meta Ads</span>
+      </div>
+
+      <!-- Google Analytics 4 -->
+      <div class="tool-item">
+        <div class="tool-logo-svg">
+          <svg width="44" height="44" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+            <rect x="30" y="10" width="10" height="28" rx="5" fill="#F9AB00"/>
+            <rect x="19" y="22" width="10" height="16" rx="5" fill="#E37400" opacity="0.85"/>
+            <circle cx="13" cy="35" r="5" fill="#E37400"/>
+          </svg>
+        </div>
+        <span class="tool-name">Google Analytics 4</span>
+      </div>
+
+      <!-- Google Tag Manager -->
+      <div class="tool-item">
+        <div class="tool-logo-svg">
+          <svg width="44" height="44" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+            <path d="M24 6L6 24l18 18 18-18L24 6z" fill="none" stroke="#4285F4" stroke-width="3"/>
+            <path d="M24 14l-10 10 10 10 10-10-10-10z" fill="#4285F4"/>
+            <path d="M24 18v12M18 24h12" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <span class="tool-name">Google Tag Manager</span>
+      </div>
+
+      <!-- Google Search Console -->
+      <div class="tool-item">
+        <div class="tool-logo-svg">
+          <svg width="44" height="44" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="22" cy="22" r="13" fill="none" stroke="#4285F4" stroke-width="4"/>
+            <line x1="31" y1="31" x2="42" y2="42" stroke="#34A853" stroke-width="4" stroke-linecap="round"/>
+            <path d="M16 22a6 6 0 016-6" stroke="#FBBC04" stroke-width="3" stroke-linecap="round" fill="none"/>
+          </svg>
+        </div>
+        <span class="tool-name">Search Console</span>
+      </div>
+
+      <!-- Facebook Pixel -->
+      <div class="tool-item">
+        <div class="tool-logo-svg">
+          <svg width="44" height="44" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+            <rect width="48" height="48" rx="10" fill="#1877F2"/>
+            <path d="M32 24h-5v-3c0-1.5.7-2 2-2h3v-5h-4c-4.5 0-6 3-6 6v4h-4v5h4v13h5V29h4l1-5z" fill="white"/>
+          </svg>
+        </div>
+        <span class="tool-name">Facebook Pixel</span>
+      </div>
+
+      <!-- Conversion API -->
+      <div class="tool-item">
+        <div class="tool-logo-svg">
+          <svg width="44" height="44" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+            <rect width="48" height="48" rx="10" fill="#0866FF"/>
+            <text x="24" y="30" text-anchor="middle" font-size="13" font-weight="bold" font-family="monospace" fill="white">CAPI</text>
+            <path d="M14 20h6M28 20h6M24 14v6M24 28v6" stroke="white" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+          </svg>
+        </div>
+        <span class="tool-name">Conversion API</span>
+      </div>
+
+      <!-- SEMrush -->
+      <div class="tool-item">
+        <div class="tool-logo-svg">
+          <svg width="44" height="44" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+            <rect width="48" height="48" rx="8" fill="#FF6B2B"/>
+            <path d="M12 34l8-14 5 8 5-8 6 14" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <circle cx="36" cy="14" r="3" fill="white"/>
+          </svg>
+        </div>
+        <span class="tool-name">SEMrush</span>
+      </div>
+
+      <!-- WordPress -->
+      <div class="tool-item">
+        <div class="tool-logo-svg">
+          <svg width="44" height="44" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="24" cy="24" r="20" fill="#21759B"/>
+            <circle cx="24" cy="24" r="20" fill="none" stroke="#21759B" stroke-width="2"/>
+            <path d="M7 24C7 15 13 7.5 21.5 7c-3 4-4.5 8.5-4.5 13.5L24 39C14.5 38 7 32 7 24zM30 8.5c3 1.5 5.5 4 7 7l-7.5 21.5C33.5 35 41 30 41 24c0-7-4.5-13-11-15.5zM22 8c1-.1 1.5-.1 2-.1 1 0 2 .1 3 .2L22 26.5 16 10.5C17.9 9 19.9 8.2 22 8zM20 28.5l4.5-12.5 4.5 12.5-4.5 2.5-4.5-2.5z" fill="white"/>
+          </svg>
+        </div>
+        <span class="tool-name">WordPress</span>
+      </div>
+
+      <!-- Shopify -->
+      <div class="tool-item">
+        <div class="tool-logo-svg">
+          <svg width="44" height="44" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+            <path d="M38.5 11.5c0 0-1-.1-2.5-.3-.2-1.5-1-5.5-4-5.5-.1 0-.3 0-.4.1-.5-.7-1.2-1-1.8-1-4.5 0-6.7 5.6-7.4 8.5-1.8.6-3 .9-3.1.9-1 .3-1 .3-1.1 1.2L17 36l19 3.5L42 34l-3.5-22.5zM31 6.5c.3 0 .5.1.8.3-2 1-4 3.5-4.8 8.5l-5.5 1.7C22.2 13 24 6.5 31 6.5zM27.5 36H27l-5-1.5 1.5-8.5h5.5L28 36h-.5zM29 25.5h-6l1.5-7.5 3-1 2 .5-0.5 8z" fill="#96BF48"/>
+            <path d="M36 12c0 0-4.5-.7-5-.8l-1 25L42 34 36 12z" fill="#5E8E3E"/>
+          </svg>
+        </div>
+        <span class="tool-name">Shopify</span>
+      </div>
+
+      <!-- WhatsApp -->
+      <div class="tool-item">
+        <div class="tool-logo-svg">
+          <svg width="44" height="44" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="24" cy="24" r="20" fill="#25D366"/>
+            <path d="M34 29.5c-.5-1-3-2-3.5-2.5-.5-.3-1-.3-1.3.2l-1.5 2c-.3.4-.7.5-1.1.3-2-1-5.5-4-7-7-.2-.4-.1-.8.2-1l1.5-1.5c.4-.4.5-.9.2-1.3L19 14.5c-.5-.8-1-.7-1.5-.5-.5.2-3 1-3 4 0 3 2.5 6.5 6 9.5 3.5 3 7.5 5 10.5 5 2.5 0 3.5-1.5 4-2.5.3-.8.3-1.7-.5-2z" fill="white"/>
+          </svg>
+        </div>
+        <span class="tool-name">WhatsApp Business API</span>
+      </div>
+
+      <!-- AI Tools -->
+      <div class="tool-item">
+        <div class="tool-logo-svg">
+          <svg width="44" height="44" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="aiGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#7C3AED"/>
+                <stop offset="100%" style="stop-color:#EC4899"/>
+              </linearGradient>
+            </defs>
+            <rect width="48" height="48" rx="10" fill="url(#aiGrad)"/>
+            <circle cx="24" cy="24" r="6" fill="white" opacity="0.9"/>
+            <circle cx="24" cy="10" r="3" fill="white" opacity="0.6"/>
+            <circle cx="24" cy="38" r="3" fill="white" opacity="0.6"/>
+            <circle cx="10" cy="24" r="3" fill="white" opacity="0.6"/>
+            <circle cx="38" cy="24" r="3" fill="white" opacity="0.6"/>
+            <line x1="24" y1="13" x2="24" y2="18" stroke="white" stroke-width="1.5" opacity="0.4"/>
+            <line x1="24" y1="30" x2="24" y2="35" stroke="white" stroke-width="1.5" opacity="0.4"/>
+            <line x1="13" y1="24" x2="18" y2="24" stroke="white" stroke-width="1.5" opacity="0.4"/>
+            <line x1="30" y1="24" x2="35" y2="24" stroke="white" stroke-width="1.5" opacity="0.4"/>
+          </svg>
+        </div>
+        <span class="tool-name">AI Tools</span>
+      </div>
+
     </div>
   </div>
 </section>
@@ -1310,6 +1782,15 @@ footer {
   </footer>
 </section>
 
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+  <div class="lightbox-img-wrap" onclick="event.stopPropagation()">
+    <img id="lightbox-img" src="" alt="">
+  </div>
+  <div class="lightbox-caption" id="lightbox-caption"></div>
+</div>
+
 <script>
   // Custom cursor
   const cursor = document.getElementById('cursor');
@@ -1343,6 +1824,45 @@ footer {
       document.getElementById('tab-' + tab.dataset.tab).classList.add('active');
     });
   });
+
+  // Iframe error detection — show fallback if site blocks embedding
+  document.querySelectorAll('.iframe-body iframe').forEach(iframe => {
+    iframe.addEventListener('error', () => {
+      iframe.style.display = 'none';
+      iframe.nextElementSibling.style.display = 'none'; // hide blocker
+      iframe.nextElementSibling.nextElementSibling.style.display = 'flex'; // show error
+    });
+    // Also detect X-Frame-Options block via load timeout
+    const timer = setTimeout(() => {
+      try {
+        const doc = iframe.contentDocument || iframe.contentWindow.document;
+        if (!doc || doc.readyState === 'complete' && !doc.body.innerHTML) {
+          iframe.style.display = 'none';
+          const blocker = iframe.nextElementSibling;
+          const error = blocker.nextElementSibling;
+          if (blocker) blocker.style.display = 'none';
+          if (error) error.style.display = 'flex';
+        }
+      } catch(e) {
+        // Cross-origin block — site loaded but we can't check; that's fine, iframe shows
+      }
+    }, 5000);
+    iframe.addEventListener('load', () => clearTimeout(timer));
+  });
+  function openLightbox(src, caption) {
+    const lb = document.getElementById('lightbox');
+    const img = document.getElementById('lightbox-img');
+    const cap = document.getElementById('lightbox-caption');
+    img.src = src;
+    cap.textContent = caption;
+    lb.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
 </script>
 </body>
 </html>
