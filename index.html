@@ -922,7 +922,122 @@ footer {
   letter-spacing: 1px;
 }
 
-/* ====== WEB PROJECTS IFRAME ====== */
+/* ====== FULL-WIDTH BANNER CARDS (Ad Campaigns tab) ====== */
+.fullbanner-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  margin-bottom: 32px;
+  cursor: none;
+  transition: box-shadow 0.3s, border-color 0.3s;
+  overflow: hidden;
+}
+.fullbanner-card:last-child { margin-bottom: 0; }
+.fullbanner-card:hover {
+  box-shadow: 0 20px 60px rgba(26,77,143,0.14);
+  border-color: var(--accent);
+}
+
+/* Caption on top */
+.fullbanner-caption {
+  padding: 28px 36px 24px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: flex-start;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+.fullbanner-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: var(--accent);
+  text-transform: uppercase;
+  white-space: nowrap;
+  padding-top: 4px;
+  flex-shrink: 0;
+}
+.fullbanner-title {
+  font-family: 'Lora', serif;
+  font-size: clamp(18px, 2.2vw, 26px);
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+  flex: 1;
+  min-width: 200px;
+}
+.fullbanner-desc {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.75;
+  font-weight: 300;
+  flex: 2;
+  min-width: 240px;
+}
+.fullbanner-hint {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: rgba(26,77,143,0.5);
+  letter-spacing: 0.5px;
+  align-self: flex-end;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* Full-width image */
+.fullbanner-img-wrap {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background: linear-gradient(135deg, #dce6f4 0%, #c8d8f0 100%);
+  min-height: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.fullbanner-img-wrap img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 0.5s ease;
+  object-fit: cover;
+}
+.fullbanner-card:hover .fullbanner-img-wrap img { transform: scale(1.015); }
+.fullbanner-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(26,77,143,0.75);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  opacity: 0;
+  transition: opacity 0.3s;
+  backdrop-filter: blur(2px);
+}
+.fullbanner-card:hover .fullbanner-overlay { opacity: 1; }
+.fullbanner-overlay .gallery-zoom-icon {
+  width: 64px; height: 64px;
+  background: rgba(255,255,255,0.15);
+  border: 2px solid rgba(255,255,255,0.5);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 26px;
+}
+.fullbanner-overlay .gallery-zoom-text {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+@media (max-width: 768px) {
+  .fullbanner-caption { padding: 20px 20px 18px; gap: 16px; }
+  .fullbanner-hint { display: none; }
+  .fullbanner-img-wrap { min-height: 200px; }
+}
+
+
 .web-projects-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -1101,7 +1216,7 @@ footer {
   from { opacity: 0; transform: translateY(28px); }
   to   { opacity: 1; transform: translateY(0); }
 }
-.anim { opacity: 0; transform: translateY(24px); transition: opacity 0.65s ease, transform 0.65s ease; }
+.anim { opacity: 1; transform: none; transition: none; }
 .anim.in { opacity: 1; transform: none; }
 .anim-d1 { transition-delay: 0.1s; }
 .anim-d2 { transition-delay: 0.2s; }
@@ -1141,7 +1256,7 @@ footer {
 <!-- NAV -->
 <nav id="navbar">
   <a href="#top" class="nav-logo">
-    <img src="assets/logo.png" alt="Sourabh Malage Logo" style="height: 44px; width: auto; display: block;">
+    <img src="1772532400431_Gemini_Generated_Image_y6vausy6vausy6va.png" alt="Sourabh Malage Logo" style="height: 44px; width: auto; display: block;">
   </a>
   <div class="nav-right">
     <ul class="nav-links">
@@ -1288,54 +1403,53 @@ footer {
 
     <!-- AD CAMPAIGNS TAB -->
     <div class="ach-panel active" id="tab-ads">
-      <div class="gallery-grid">
 
-        <!-- BANNER 1: Google Ads — image left, caption right -->
-        <div class="gallery-item" onclick="openLightbox('https://drive.google.com/uc?export=view&id=16KwuYJD0CGVHaVBbuIK_xYXHknkgJN_d','Google Ads Campaign Dashboard')">
-          <div class="gallery-img-wrap">
-            <img src="https://drive.google.com/uc?export=view&id=16KwuYJD0CGVHaVBbuIK_xYXHknkgJN_d" alt="Google Ads Dashboard"
-              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-            <div class="gallery-placeholder" style="display:none;">
-              <div class="gallery-placeholder-icon">📸</div>
-              <div class="gallery-placeholder-text">Google Ads Dashboard Screenshot</div>
-              <div class="gallery-placeholder-hint">Image loading from Google Drive…</div>
-            </div>
-            <div class="gallery-zoom">
-              <div class="gallery-zoom-icon">🔍</div>
-              <div class="gallery-zoom-text">Click to expand</div>
-            </div>
+      <!-- BANNER 1: Meta Ads (full width, caption on top) -->
+      <div class="fullbanner-card" onclick="openLightbox('https://drive.google.com/uc?export=view&id=1kzPyw0Te2AmqzXpR_GfTxsp3Rhnl_XNG','Meta Ads — Conversion-Focused Campaign Execution')">
+        <div class="fullbanner-caption">
+          <div class="fullbanner-tag">📱 Meta Ads Manager</div>
+          <div class="fullbanner-title">Conversion-Focused Campaign Execution</div>
+          <div class="fullbanner-desc">Managed and optimized Meta Ads campaigns for audience targeting, retargeting, and conversion-focused performance across lead generation and e-commerce objectives.</div>
+          <div class="fullbanner-hint">🔍 Click image to expand full screen</div>
+        </div>
+        <div class="fullbanner-img-wrap">
+          <img src="https://drive.google.com/uc?export=view&id=1kzPyw0Te2AmqzXpR_GfTxsp3Rhnl_XNG" alt="Meta Ads Campaign Dashboard"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="gallery-placeholder" style="display:none;">
+            <div class="gallery-placeholder-icon">📸</div>
+            <div class="gallery-placeholder-text">Meta Ads Manager Screenshot</div>
+            <div class="gallery-placeholder-hint">Image loading from Google Drive…</div>
           </div>
-          <div class="gallery-caption">
-            <div class="gallery-cap-tag">📈 Google Ads</div>
-            <div class="gallery-cap-title">Campaign Overview Dashboard</div>
-            <div class="gallery-cap-desc">Managed and optimized Google Ads campaigns across Display and Search formats to drive targeted traffic and lead generation through structured targeting and performance optimization.</div>
+          <div class="fullbanner-overlay">
+            <div class="gallery-zoom-icon">🔍</div>
+            <div class="gallery-zoom-text">Click to expand</div>
           </div>
         </div>
-
-        <!-- BANNER 2: Meta Ads — image right, caption left (alternating) -->
-        <!-- BANNER 2: Meta Ads -->
-        <div class="gallery-item" onclick="openLightbox('https://drive.google.com/uc?export=view&id=1kzPyw0Te2AmqzXpR_GfTxsp3Rhnl_XNG','Meta Ads Conversion-Focused Campaign Execution')">
-          <div class="gallery-img-wrap">
-            <img src="https://drive.google.com/uc?export=view&id=1kzPyw0Te2AmqzXpR_GfTxsp3Rhnl_XNG" alt="Meta Ads Results"
-              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-            <div class="gallery-placeholder" style="display:none;">
-              <div class="gallery-placeholder-icon">📸</div>
-              <div class="gallery-placeholder-text">Meta Ads Manager Screenshot</div>
-              <div class="gallery-placeholder-hint">Image loading from Google Drive…</div>
-            </div>
-            <div class="gallery-zoom">
-              <div class="gallery-zoom-icon">🔍</div>
-              <div class="gallery-zoom-text">Click to expand</div>
-            </div>
-          </div>
-          <div class="gallery-caption">
-            <div class="gallery-cap-tag">📱 Meta Ads Manager</div>
-            <div class="gallery-cap-title">Conversion-Focused Campaign Execution</div>
-            <div class="gallery-cap-desc">Managed and optimized Meta Ads campaigns for audience targeting, retargeting, and conversion-focused performance across lead generation and e-commerce objectives.</div>
-          </div>
-        </div>
-
       </div>
+
+      <!-- BANNER 2: Google Ads (full width, caption on top) -->
+      <div class="fullbanner-card" onclick="openLightbox('https://drive.google.com/uc?export=view&id=16KwuYJD0CGVHaVBbuIK_xYXHknkgJN_d','Google Ads — Campaign Overview Dashboard')">
+        <div class="fullbanner-caption">
+          <div class="fullbanner-tag">📈 Google Ads</div>
+          <div class="fullbanner-title">Campaign Overview Dashboard</div>
+          <div class="fullbanner-desc">Managed and optimized Google Ads campaigns across Display and Search formats to drive targeted traffic and lead generation through structured targeting and performance optimization.</div>
+          <div class="fullbanner-hint">🔍 Click image to expand full screen</div>
+        </div>
+        <div class="fullbanner-img-wrap">
+          <img src="https://drive.google.com/uc?export=view&id=16KwuYJD0CGVHaVBbuIK_xYXHknkgJN_d" alt="Google Ads Campaign Dashboard"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="gallery-placeholder" style="display:none;">
+            <div class="gallery-placeholder-icon">📸</div>
+            <div class="gallery-placeholder-text">Google Ads Dashboard Screenshot</div>
+            <div class="gallery-placeholder-hint">Image loading from Google Drive…</div>
+          </div>
+          <div class="fullbanner-overlay">
+            <div class="gallery-zoom-icon">🔍</div>
+            <div class="gallery-zoom-text">Click to expand</div>
+          </div>
+        </div>
+      </div>
+
     </div>
 
     <!-- SEO RESULTS TAB -->
@@ -1745,11 +1859,11 @@ footer {
     </div>
 
     <div class="contact-cards anim anim-d2">
-      <a href="mailto:sourabhmalage01@gmail.com" class="contact-card">
+      <a href="/cdn-cgi/l/email-protection#20534f55524142484d414c414745101160474d41494c0e434f4d" class="contact-card">
         <div class="contact-card-icon">✉️</div>
         <div>
           <div class="contact-card-label">Email</div>
-          <div class="contact-card-value">sourabhmalage01@gmail.com</div>
+          <div class="contact-card-value"><span class="__cf_email__" data-cfemail="483b273d3a292a20252924292f2d7879082f25292124662b2725">[email&#160;protected]</span></div>
           <div class="contact-card-sub">Preferred contact method</div>
         </div>
       </a>
@@ -1791,7 +1905,7 @@ footer {
   <div class="lightbox-caption" id="lightbox-caption"></div>
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   // Custom cursor
   const cursor = document.getElementById('cursor');
   const ring = document.getElementById('cursorRing');
@@ -1808,12 +1922,24 @@ footer {
     navbar.classList.toggle('scrolled', window.scrollY > 40);
   });
 
-  // Scroll reveal
+  // Scroll reveal — fixed to ensure all sections animate in reliably
   const anims = document.querySelectorAll('.anim');
   const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); } });
-  }, { threshold: 0.1 });
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0, rootMargin: '0px 0px -40px 0px' });
   anims.forEach(el => obs.observe(el));
+  // Immediately show any .anim elements already visible on page load
+  setTimeout(() => {
+    anims.forEach(el => {
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight) el.classList.add('in');
+    });
+  }, 100);
 
   // Achievement tabs
   document.querySelectorAll('.ach-tab').forEach(tab => {
@@ -1858,11 +1984,3 @@ footer {
     lb.classList.add('open');
     document.body.style.overflow = 'hidden';
   }
-  function closeLightbox() {
-    document.getElementById('lightbox').classList.remove('open');
-    document.body.style.overflow = '';
-  }
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
-</script>
-</body>
-</html>
