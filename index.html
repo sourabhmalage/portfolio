@@ -980,35 +980,27 @@ footer {
 }
 .fullbanner-card:hover .fullbanner-img-wrap img { transform: scale(1.015); }
 .fullbanner-overlay {
+  display: none;
+}
+
+/* Small badge in corner — doesn't block image */
+.fullbanner-img-wrap::after {
+  content: '🔍  Click to expand';
   position: absolute;
-  inset: 0;
-  background: rgba(26,77,143,0.75);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  opacity: 0;
-  transition: opacity 0.3s;
-  backdrop-filter: blur(2px);
-  pointer-events: none;
-  cursor: pointer;
-}
-.fullbanner-card:hover .fullbanner-overlay { opacity: 1; }
-.fullbanner-overlay .gallery-zoom-icon {
-  width: 64px; height: 64px;
-  background: rgba(255,255,255,0.15);
-  border: 2px solid rgba(255,255,255,0.5);
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 26px;
-}
-.fullbanner-overlay .gallery-zoom-text {
+  bottom: 12px;
+  right: 14px;
+  background: rgba(0,0,0,0.55);
   color: #fff;
-  font-size: 14px;
+  font-size: 11px;
   font-weight: 600;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.4px;
+  padding: 5px 12px;
+  border-radius: 20px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s;
 }
+.fullbanner-card:hover .fullbanner-img-wrap::after { opacity: 1; }
 
 @media (max-width: 768px) {
   .fullbanner-caption { padding: 20px 20px 18px; gap: 16px; }
@@ -1235,7 +1227,7 @@ footer {
 <!-- NAV -->
 <nav id="navbar">
   <a href="#top" class="nav-logo">
-    <img src="assets/logo.png" alt="Sourabh Malage Logo" style="height: 64px; width: auto; display: block;">
+    <img src="assets/logo.png" alt="Sourabh Malage Logo" style="height: 80px; width: auto; display: block;">
   </a>
   <div class="nav-right">
     <ul class="nav-links">
@@ -1673,62 +1665,86 @@ footer {
     <div class="tools-grid anim anim-d1">
 
       <div class="tool-item">
-        <div class="tool-logo-svg"><img src="assets/google_ads.png" alt="Google Ads" style="width:44px;height:44px;object-fit:contain;"></div>
+        <div class="tool-logo-svg">
+          <svg width="44" height="44" viewBox="0 0 48 48"><path d="M14.4 30.6L5.6 15.4A4 4 0 0112.5 11l8.8 15.2z" fill="#FBBC04"/><path d="M33.6 30.6l8.8-15.2A4 4 0 0135.5 11l-8.8 15.2z" fill="#4285F4"/><circle cx="24" cy="36" r="5.5" fill="#34A853"/><circle cx="8.5" cy="15.5" r="5.5" fill="#EA4335"/><circle cx="39.5" cy="15.5" r="5.5" fill="#EA4335"/></svg>
+        </div>
         <span class="tool-name">Google Ads</span>
       </div>
 
       <div class="tool-item">
-        <div class="tool-logo-svg"><img src="assets/meta_ads.png" alt="Meta Ads" style="width:44px;height:44px;object-fit:contain;"></div>
+        <div class="tool-logo-svg">
+          <svg width="44" height="44" viewBox="0 0 48 48"><defs><linearGradient id="mg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#0082fb"/><stop offset="100%" style="stop-color:#0866ff"/></linearGradient></defs><path d="M6 24c0-4.5 1.8-8 4.5-10C12.7 12.2 15.5 12 18 13.5c2 1.1 3.5 3 5 5.5 1 1.7 2 4 3 6.5 1-2.5 2-4.8 3-6.5 1.5-2.5 3-4.4 5-5.5 2.5-1.5 5.3-1.3 7.5.5C44.2 16 46 19.5 46 24c0 4.2-1.5 7.5-4 9.5-2 1.6-4.5 2-6.5.5-1.5-1-2.5-2.8-4-5.5L30 25.5l-3-5c-.5-.8-1-1.5-1.5-2l-1.5 2-3 5-1.5 3c-1.5 2.7-2.5 4.5-4 5.5-2 1.5-4.5 1.1-6.5-.5C7.5 31.5 6 28.2 6 24z" fill="url(#mg)"/></svg>
+        </div>
         <span class="tool-name">Meta Ads</span>
       </div>
 
       <div class="tool-item">
-        <div class="tool-logo-svg"><img src="assets/google_analytics.png" alt="Google Analytics 4" style="width:44px;height:44px;object-fit:contain;"></div>
+        <div class="tool-logo-svg">
+          <svg width="44" height="44" viewBox="0 0 48 48"><rect x="30" y="10" width="10" height="28" rx="5" fill="#F9AB00"/><rect x="19" y="22" width="10" height="16" rx="5" fill="#E37400" opacity="0.85"/><circle cx="13" cy="35" r="5" fill="#E37400"/></svg>
+        </div>
         <span class="tool-name">Google Analytics 4</span>
       </div>
 
       <div class="tool-item">
-        <div class="tool-logo-svg"><img src="assets/google_tag_manager.png" alt="Google Tag Manager" style="width:44px;height:44px;object-fit:contain;"></div>
+        <div class="tool-logo-svg">
+          <svg width="44" height="44" viewBox="0 0 48 48"><path d="M24 6L6 24l18 18 18-18L24 6z" fill="none" stroke="#4285F4" stroke-width="3"/><path d="M24 14l-10 10 10 10 10-10-10-10z" fill="#4285F4"/><path d="M24 18v12M18 24h12" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/></svg>
+        </div>
         <span class="tool-name">Google Tag Manager</span>
       </div>
 
       <div class="tool-item">
-        <div class="tool-logo-svg"><img src="assets/search_console.png" alt="Search Console" style="width:44px;height:44px;object-fit:contain;"></div>
+        <div class="tool-logo-svg">
+          <svg width="44" height="44" viewBox="0 0 48 48"><circle cx="22" cy="22" r="13" fill="none" stroke="#4285F4" stroke-width="4"/><line x1="31" y1="31" x2="42" y2="42" stroke="#34A853" stroke-width="4" stroke-linecap="round"/><path d="M16 22a6 6 0 016-6" stroke="#FBBC04" stroke-width="3" stroke-linecap="round" fill="none"/></svg>
+        </div>
         <span class="tool-name">Search Console</span>
       </div>
 
       <div class="tool-item">
-        <div class="tool-logo-svg"><img src="assets/facebook_pixel.png" alt="Facebook Pixel" style="width:44px;height:44px;object-fit:contain;"></div>
+        <div class="tool-logo-svg">
+          <svg width="44" height="44" viewBox="0 0 48 48"><rect width="48" height="48" rx="10" fill="#1877F2"/><path d="M32 24h-5v-3c0-1.5.7-2 2-2h3v-5h-4c-4.5 0-6 3-6 6v4h-4v5h4v13h5V29h4l1-5z" fill="white"/></svg>
+        </div>
         <span class="tool-name">Facebook Pixel</span>
       </div>
 
       <div class="tool-item">
-        <div class="tool-logo-svg"><img src="assets/conversion_api.png" alt="Conversion API" style="width:44px;height:44px;object-fit:contain;"></div>
+        <div class="tool-logo-svg">
+          <svg width="44" height="44" viewBox="0 0 48 48"><rect width="48" height="48" rx="10" fill="#0866FF"/><text x="24" y="30" text-anchor="middle" font-size="13" font-weight="bold" font-family="monospace" fill="white">CAPI</text></svg>
+        </div>
         <span class="tool-name">Conversion API</span>
       </div>
 
       <div class="tool-item">
-        <div class="tool-logo-svg"><img src="assets/semrush.png" alt="SEMrush" style="width:44px;height:44px;object-fit:contain;"></div>
+        <div class="tool-logo-svg">
+          <svg width="44" height="44" viewBox="0 0 48 48"><rect width="48" height="48" rx="8" fill="#FF6B2B"/><path d="M12 34l8-14 5 8 5-8 6 14" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="36" cy="14" r="3" fill="white"/></svg>
+        </div>
         <span class="tool-name">SEMrush</span>
       </div>
 
       <div class="tool-item">
-        <div class="tool-logo-svg"><img src="assets/wordpress.png" alt="WordPress" style="width:44px;height:44px;object-fit:contain;"></div>
+        <div class="tool-logo-svg">
+          <svg width="44" height="44" viewBox="0 0 48 48"><circle cx="24" cy="24" r="20" fill="#21759B"/><path d="M7 24C7 15 13 7.5 21.5 7c-3 4-4.5 8.5-4.5 13.5L24 39C14.5 38 7 32 7 24zM30 8.5c3 1.5 5.5 4 7 7l-7.5 21.5C33.5 35 41 30 41 24c0-7-4.5-13-11-15.5zM22 8c1-.1 1.5-.1 2-.1 1 0 2 .1 3 .2L22 26.5 16 10.5C17.9 9 19.9 8.2 22 8z" fill="white"/></svg>
+        </div>
         <span class="tool-name">WordPress</span>
       </div>
 
       <div class="tool-item">
-        <div class="tool-logo-svg"><img src="assets/shopify.png" alt="Shopify" style="width:44px;height:44px;object-fit:contain;"></div>
+        <div class="tool-logo-svg">
+          <svg width="44" height="44" viewBox="0 0 48 48"><path d="M38.5 11.5c-.1 0-1-.1-2.5-.3-.2-1.5-1-5.5-4-5.5h-.4c-.5-.7-1.2-1-1.8-1-4.5 0-6.7 5.6-7.4 8.5-1.8.6-3 .9-3.1.9-1 .3-1 .3-1.1 1.2L17 36l19 3.5L42 34 38.5 11.5z" fill="#96BF48"/><path d="M36 12s-4.5-.7-5-.8l-1 25L42 34 36 12z" fill="#5E8E3E"/><path d="M27.5 17l-1 3-2-.5-3 1-1.5 7.5h6l-.5 7.5.5 1.5 4.5-2.5-4.5-12.5z" fill="white" opacity="0.6"/></svg>
+        </div>
         <span class="tool-name">Shopify</span>
       </div>
 
       <div class="tool-item">
-        <div class="tool-logo-svg"><img src="assets/whatsapp.png" alt="WhatsApp Business API" style="width:44px;height:44px;object-fit:contain;"></div>
+        <div class="tool-logo-svg">
+          <svg width="44" height="44" viewBox="0 0 48 48"><circle cx="24" cy="24" r="20" fill="#25D366"/><path d="M34 29.5c-.5-1-3-2-3.5-2.5-.5-.3-1-.3-1.3.2l-1.5 2c-.3.4-.7.5-1.1.3-2-1-5.5-4-7-7-.2-.4-.1-.8.2-1l1.5-1.5c.4-.4.5-.9.2-1.3L19 14.5c-.5-.8-1-.7-1.5-.5-.5.2-3 1-3 4 0 3 2.5 6.5 6 9.5 3.5 3 7.5 5 10.5 5 2.5 0 3.5-1.5 4-2.5.3-.8.3-1.7-.5-2z" fill="white"/></svg>
+        </div>
         <span class="tool-name">WhatsApp Business API</span>
       </div>
 
       <div class="tool-item">
-        <div class="tool-logo-svg"><img src="assets/ai_tools.png" alt="AI Tools" style="width:44px;height:44px;object-fit:contain;"></div>
+        <div class="tool-logo-svg">
+          <svg width="44" height="44" viewBox="0 0 48 48"><defs><linearGradient id="ag" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#7C3AED"/><stop offset="100%" style="stop-color:#EC4899"/></linearGradient></defs><rect width="48" height="48" rx="10" fill="url(#ag)"/><circle cx="24" cy="24" r="6" fill="white" opacity="0.9"/><circle cx="24" cy="10" r="3" fill="white" opacity="0.6"/><circle cx="24" cy="38" r="3" fill="white" opacity="0.6"/><circle cx="10" cy="24" r="3" fill="white" opacity="0.6"/><circle cx="38" cy="24" r="3" fill="white" opacity="0.6"/></svg>
+        </div>
         <span class="tool-name">AI Tools</span>
       </div>
 
@@ -1746,11 +1762,11 @@ footer {
     </div>
 
     <div class="contact-cards anim anim-d2">
-      <a href="/cdn-cgi/l/email-protection#20534f55524142484d414c414745101160474d41494c0e434f4d" class="contact-card">
+      <a href="mailto:sourabhmalage01@gmail.com" class="contact-card">
         <div class="contact-card-icon">✉️</div>
         <div>
           <div class="contact-card-label">Email</div>
-          <div class="contact-card-value"><span class="__cf_email__" data-cfemail="483b273d3a292a20252924292f2d7879082f25292124662b2725">[email&#160;protected]</span></div>
+          <div class="contact-card-value">sourabhmalage01@gmail.com</div>
           <div class="contact-card-sub">Preferred contact method</div>
         </div>
       </a>
