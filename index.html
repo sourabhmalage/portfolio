@@ -988,8 +988,7 @@ footer {
   position: relative;
   width: 100%;
   overflow: hidden;
-  background: linear-gradient(135deg, #dce6f4 0%, #c8d8f0 100%);
-  min-height: 320px;
+  background: #f0f4fa;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -998,8 +997,8 @@ footer {
   width: 100%;
   height: auto;
   display: block;
+  object-fit: contain;
   transition: transform 0.5s ease;
-  object-fit: cover;
 }
 .fullbanner-card:hover .fullbanner-img-wrap img { transform: scale(1.015); }
 .fullbanner-overlay {
@@ -1256,7 +1255,7 @@ footer {
 <!-- NAV -->
 <nav id="navbar">
   <a href="#top" class="nav-logo">
-    <img src="1772532400431_Gemini_Generated_Image_y6vausy6vausy6va.png" alt="Sourabh Malage Logo" style="height: 44px; width: auto; display: block;">
+    <img src="assets/logo.png" alt="Sourabh Malage Logo" style="height: 44px; width: auto; display: block;">
   </a>
   <div class="nav-right">
     <ul class="nav-links">
@@ -1405,7 +1404,7 @@ footer {
     <div class="ach-panel active" id="tab-ads">
 
       <!-- BANNER 1: Meta Ads (full width, caption on top) -->
-      <div class="fullbanner-card" onclick="openLightbox('https://drive.google.com/uc?export=view&id=1kzPyw0Te2AmqzXpR_GfTxsp3Rhnl_XNG','Meta Ads — Conversion-Focused Campaign Execution')">
+      <div class="fullbanner-card" onclick="openLightbox('assets/meta_ads_campaign_performance.png','Meta Ads — Conversion-Focused Campaign Execution')">
         <div class="fullbanner-caption">
           <div class="fullbanner-tag">📱 Meta Ads Manager</div>
           <div class="fullbanner-title">Conversion-Focused Campaign Execution</div>
@@ -1413,12 +1412,12 @@ footer {
           <div class="fullbanner-hint">🔍 Click image to expand full screen</div>
         </div>
         <div class="fullbanner-img-wrap">
-          <img src="https://drive.google.com/uc?export=view&id=1kzPyw0Te2AmqzXpR_GfTxsp3Rhnl_XNG" alt="Meta Ads Campaign Dashboard"
+          <img src="assets/meta_ads_campaign_performance.png" alt="Meta Ads Campaign Dashboard"
             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
           <div class="gallery-placeholder" style="display:none;">
             <div class="gallery-placeholder-icon">📸</div>
-            <div class="gallery-placeholder-text">Meta Ads Manager Screenshot</div>
-            <div class="gallery-placeholder-hint">Image loading from Google Drive…</div>
+            <div class="gallery-placeholder-text">meta_ads_campaign_performance.png</div>
+            <div class="gallery-placeholder-hint">Place in assets/ folder</div>
           </div>
           <div class="fullbanner-overlay">
             <div class="gallery-zoom-icon">🔍</div>
@@ -1428,7 +1427,7 @@ footer {
       </div>
 
       <!-- BANNER 2: Google Ads (full width, caption on top) -->
-      <div class="fullbanner-card" onclick="openLightbox('https://drive.google.com/uc?export=view&id=16KwuYJD0CGVHaVBbuIK_xYXHknkgJN_d','Google Ads — Campaign Overview Dashboard')">
+      <div class="fullbanner-card" onclick="openLightbox('assets/google_ads_campaign_performance.png','Google Ads — Campaign Overview Dashboard')">
         <div class="fullbanner-caption">
           <div class="fullbanner-tag">📈 Google Ads</div>
           <div class="fullbanner-title">Campaign Overview Dashboard</div>
@@ -1436,12 +1435,12 @@ footer {
           <div class="fullbanner-hint">🔍 Click image to expand full screen</div>
         </div>
         <div class="fullbanner-img-wrap">
-          <img src="https://drive.google.com/uc?export=view&id=16KwuYJD0CGVHaVBbuIK_xYXHknkgJN_d" alt="Google Ads Campaign Dashboard"
+          <img src="assets/google_ads_campaign_performance.png" alt="Google Ads Campaign Dashboard"
             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
           <div class="gallery-placeholder" style="display:none;">
             <div class="gallery-placeholder-icon">📸</div>
-            <div class="gallery-placeholder-text">Google Ads Dashboard Screenshot</div>
-            <div class="gallery-placeholder-hint">Image loading from Google Drive…</div>
+            <div class="gallery-placeholder-text">google_ads_campaign_performance.png</div>
+            <div class="gallery-placeholder-hint">Place in assets/ folder</div>
           </div>
           <div class="fullbanner-overlay">
             <div class="gallery-zoom-icon">🔍</div>
@@ -1454,92 +1453,100 @@ footer {
 
     <!-- SEO RESULTS TAB -->
     <div class="ach-panel" id="tab-seo">
-      <div class="gallery-grid">
 
-        <!-- SEO Card 1: Search Discoverability -->
-        <div class="gallery-item" onclick="openLightbox('https://drive.google.com/uc?export=view&id=1w2iiz5MvVIZbCK5n5xNdUL4_-wAfaaBW','Search Discoverability Improved')">
-          <div class="gallery-img-wrap">
-            <img src="https://drive.google.com/uc?export=view&id=1w2iiz5MvVIZbCK5n5xNdUL4_-wAfaaBW" alt="Search Discoverability"
-              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-            <div class="gallery-placeholder" style="display:none;">
-              <div class="gallery-placeholder-icon">📸</div>
-              <div class="gallery-placeholder-text">SEO Performance Screenshot</div>
-              <div class="gallery-placeholder-hint">Image loading from Google Drive…</div>
-            </div>
-            <div class="gallery-zoom"><div class="gallery-zoom-icon">🔍</div><div class="gallery-zoom-text">Click to expand</div></div>
+      <div class="fullbanner-card" onclick="openLightbox('assets/seo_organic_growth1.png','Search Discoverability Improved')">
+        <div class="fullbanner-caption">
+          <div class="fullbanner-tag">🔍 SEO Optimization</div>
+          <div class="fullbanner-title">Search Discoverability Improved</div>
+          <div class="fullbanner-desc">Executed on-page and technical SEO optimization including content alignment, meta optimization, and website audit corrections to improve search engine discoverability and indexing readiness across targeted pages.</div>
+          <div class="fullbanner-hint">🔍 Click image to expand full screen</div>
+        </div>
+        <div class="fullbanner-img-wrap">
+          <img src="assets/seo_organic_growth1.png" alt="SEO Organic Growth 1"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="gallery-placeholder" style="display:none;">
+            <div class="gallery-placeholder-icon">📸</div>
+            <div class="gallery-placeholder-text">seo_organic_growth1.png</div>
+            <div class="gallery-placeholder-hint">Place in assets/ folder</div>
           </div>
-          <div class="gallery-caption">
-            <div class="gallery-cap-tag">🔍 SEO Optimization</div>
-            <div class="gallery-cap-title">Search Discoverability Improved</div>
-            <div class="gallery-cap-desc">Executed on-page and technical SEO optimization including content alignment, meta optimization, and website audit corrections to improve search engine discoverability and indexing readiness across targeted pages.</div>
+          <div class="fullbanner-overlay">
+            <div class="gallery-zoom-icon">🔍</div>
+            <div class="gallery-zoom-text">Click to expand</div>
           </div>
         </div>
-
-        <!-- SEO Card 2: Organic Search Presence -->
-        <div class="gallery-item" onclick="openLightbox('screenshots/gsc-rankings.png','Organic Search Presence')">
-          <div class="gallery-img-wrap">
-            <img src="screenshots/gsc-rankings.png" alt="Organic Search Presence"
-              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-            <div class="gallery-placeholder" style="display:none;">
-              <div class="gallery-placeholder-icon">📸</div>
-              <div class="gallery-placeholder-text">Your Google Search Console screenshot</div>
-              <div class="gallery-placeholder-hint">Save as: screenshots/gsc-rankings.png</div>
-            </div>
-            <div class="gallery-zoom"><div class="gallery-zoom-icon">🔍</div><div class="gallery-zoom-text">Click to expand</div></div>
-          </div>
-          <div class="gallery-caption">
-            <div class="gallery-cap-tag">🌐 Search Console</div>
-            <div class="gallery-cap-title">Organic Search Presence</div>
-            <div class="gallery-cap-desc">Improved website search presence through keyword-focused content optimization and structured on-site SEO practices supporting organic discoverability for relevant queries.</div>
-          </div>
-        </div>
-
       </div>
+
+      <div class="fullbanner-card" onclick="openLightbox('assets/seo_organic_growth2.png','Organic Search Presence')">
+        <div class="fullbanner-caption">
+          <div class="fullbanner-tag">🌐 Search Console</div>
+          <div class="fullbanner-title">Organic Search Presence</div>
+          <div class="fullbanner-desc">Improved website search presence through keyword-focused content optimization and structured on-site SEO practices supporting organic discoverability for relevant queries.</div>
+          <div class="fullbanner-hint">🔍 Click image to expand full screen</div>
+        </div>
+        <div class="fullbanner-img-wrap">
+          <img src="assets/seo_organic_growth2.png" alt="SEO Organic Growth 2"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="gallery-placeholder" style="display:none;">
+            <div class="gallery-placeholder-icon">📸</div>
+            <div class="gallery-placeholder-text">seo_organic_growth2.png</div>
+            <div class="gallery-placeholder-hint">Place in assets/ folder</div>
+          </div>
+          <div class="fullbanner-overlay">
+            <div class="gallery-zoom-icon">🔍</div>
+            <div class="gallery-zoom-text">Click to expand</div>
+          </div>
+        </div>
+      </div>
+
     </div>
 
     <!-- SOCIAL MEDIA TAB -->
     <div class="ach-panel" id="tab-social">
-      <div class="gallery-grid">
 
-        <!-- Social Card 1: sapien_kid -->
-        <div class="gallery-item" onclick="openLightbox('screenshots/sapien-kid-ig.png','@sapien_kid — Account Management')">
-          <div class="gallery-img-wrap">
-            <img src="screenshots/sapien-kid-ig.png" alt="@sapien_kid Instagram"
-              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-            <div class="gallery-placeholder" style="display:none;">
-              <div class="gallery-placeholder-icon">📸</div>
-              <div class="gallery-placeholder-text">Screenshot of @sapien_kid Instagram profile or post insights</div>
-              <div class="gallery-placeholder-hint">Save as: screenshots/sapien-kid-ig.png</div>
-            </div>
-            <div class="gallery-zoom"><div class="gallery-zoom-icon">🔍</div><div class="gallery-zoom-text">Click to expand</div></div>
+      <div class="fullbanner-card" onclick="openLightbox('assets/social_media_account_management1.png','Account Management · Content & Growth')">
+        <div class="fullbanner-caption">
+          <div class="fullbanner-tag">📱 Instagram Optimization</div>
+          <div class="fullbanner-title">Account Management · Content & Growth</div>
+          <div class="fullbanner-desc">Content strategy, post creation, caption writing, and scheduling for this Instagram account. Focused on reach, engagement, and follower growth.</div>
+          <div class="fullbanner-hint">🔍 Click image to expand full screen</div>
+        </div>
+        <div class="fullbanner-img-wrap">
+          <img src="assets/social_media_account_management1.png" alt="Social Media Account Management 1"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="gallery-placeholder" style="display:none;">
+            <div class="gallery-placeholder-icon">📸</div>
+            <div class="gallery-placeholder-text">social_media_account_management1.png</div>
+            <div class="gallery-placeholder-hint">Place in assets/ folder</div>
           </div>
-          <div class="gallery-caption">
-            <div class="gallery-cap-tag">📱 Instagram Optimization</div>
-            <div class="gallery-cap-title">Account Management · Content & Growth</div>
-            <div class="gallery-cap-desc">Content strategy, post creation, caption writing, and scheduling for this Instagram account. Focused on reach, engagement, and follower growth.</div>
+          <div class="fullbanner-overlay">
+            <div class="gallery-zoom-icon">🔍</div>
+            <div class="gallery-zoom-text">Click to expand</div>
           </div>
         </div>
-
-        <!-- Social Card 2: happybucket_saya -->
-        <div class="gallery-item" onclick="openLightbox('screenshots/happybucket-ig.png','@happybucket_saya — Content Strategy Execution')">
-          <div class="gallery-img-wrap">
-            <img src="screenshots/happybucket-ig.png" alt="@happybucket_saya Instagram"
-              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-            <div class="gallery-placeholder" style="display:none;">
-              <div class="gallery-placeholder-icon">📸</div>
-              <div class="gallery-placeholder-text">Screenshot of @happybucket_saya profile or insights</div>
-              <div class="gallery-placeholder-hint">Save as: screenshots/happybucket-ig.png</div>
-            </div>
-            <div class="gallery-zoom"><div class="gallery-zoom-icon">🔍</div><div class="gallery-zoom-text">Click to expand</div></div>
-          </div>
-          <div class="gallery-caption">
-            <div class="gallery-cap-tag">📱 Content Execution</div>
-            <div class="gallery-cap-title">Content Strategy Execution</div>
-            <div class="gallery-cap-desc">Social Media Strategy & Execution</div>
-          </div>
-        </div>
-
       </div>
+
+      <div class="fullbanner-card" onclick="openLightbox('assets/social_media_account_management2.png','Content Strategy Execution')">
+        <div class="fullbanner-caption">
+          <div class="fullbanner-tag">📱 Content Execution</div>
+          <div class="fullbanner-title">Content Strategy Execution</div>
+          <div class="fullbanner-desc">Social Media Strategy & Execution</div>
+          <div class="fullbanner-hint">🔍 Click image to expand full screen</div>
+        </div>
+        <div class="fullbanner-img-wrap">
+          <img src="assets/social_media_account_management2.png" alt="Social Media Account Management 2"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="gallery-placeholder" style="display:none;">
+            <div class="gallery-placeholder-icon">📸</div>
+            <div class="gallery-placeholder-text">social_media_account_management2.png</div>
+            <div class="gallery-placeholder-hint">Place in assets/ folder</div>
+          </div>
+          <div class="fullbanner-overlay">
+            <div class="gallery-zoom-icon">🔍</div>
+            <div class="gallery-zoom-text">Click to expand</div>
+          </div>
+        </div>
+      </div>
+
     </div>
 
     <!-- WEB PROJECTS TAB -->
@@ -1975,6 +1982,19 @@ footer {
     }, 5000);
     iframe.addEventListener('load', () => clearTimeout(timer));
   });
+  // Simple direct image load — .png files in assets/
+  document.querySelectorAll('.fullbanner-img-wrap img').forEach(img => {
+    img.addEventListener('error', function() {
+      this.style.display = 'none';
+      const ph = this.nextElementSibling;
+      if (ph && ph.classList.contains('gallery-placeholder')) {
+        ph.style.display = 'flex';
+        const hint = ph.querySelector('.gallery-placeholder-hint');
+        if (hint) hint.innerHTML = '❌ Cannot load: <code style="font-size:11px;background:#eee;padding:2px 6px;border-radius:3px">' + this.src + '</code>';
+      }
+    });
+  });
+
   function openLightbox(src, caption) {
     const lb = document.getElementById('lightbox');
     const img = document.getElementById('lightbox-img');
