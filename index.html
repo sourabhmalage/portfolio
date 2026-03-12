@@ -29,33 +29,11 @@ body {
   background: var(--paper);
   color: var(--ink);
   overflow-x: hidden;
-  cursor: none;
+  cursor: auto;
 }
 
 /* ====== CUSTOM CURSOR ====== */
-.cursor {
-  position: fixed;
-  width: 10px; height: 10px;
-  background: var(--accent);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9999;
-  transform: translate(-50%, -50%);
-  transition: width 0.2s, height 0.2s;
-}
-.cursor-ring {
-  position: fixed;
-  width: 36px; height: 36px;
-  border: 1.5px solid var(--accent);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9998;
-  transform: translate(-50%, -50%);
-  transition: width 0.25s, height 0.25s, opacity 0.25s;
-  opacity: 0.5;
-}
-body:has(a:hover) .cursor-ring,
-body:has(button:hover) .cursor-ring { width: 52px; height: 52px; opacity: 1; }
+.cursor, .cursor-ring { display: none; }
 
 /* ====== NAV ====== */
 nav {
@@ -462,7 +440,7 @@ header::after {
   color: var(--muted);
   border: none;
   background: none;
-  cursor: none;
+  cursor: auto;
   border-bottom: 3px solid transparent;
   margin-bottom: -2px;
   transition: all 0.2s;
@@ -488,7 +466,7 @@ header::after {
   overflow: hidden;
   position: relative;
   transition: all 0.3s;
-  cursor: none;
+  cursor: auto;
 }
 .gallery-item:hover {
   box-shadow: 0 24px 64px rgba(26,77,143,0.15);
@@ -670,7 +648,7 @@ header::after {
   pointer-events: none;
   transition: opacity 0.3s;
   padding: 40px;
-  cursor: none;
+  cursor: auto;
 }
 .lightbox.open {
   opacity: 1;
@@ -697,7 +675,7 @@ header::after {
   font-size: 24px;
   width: 48px; height: 48px;
   display: flex; align-items: center; justify-content: center;
-  cursor: none;
+  cursor: auto;
   transition: all 0.2s;
   border-radius: 50%;
 }
@@ -927,7 +905,7 @@ footer {
   background: var(--card);
   border: 1px solid var(--border);
   margin-bottom: 32px;
-  cursor: none;
+  cursor: auto;
   transition: box-shadow 0.3s, border-color 0.3s;
   overflow: hidden;
 }
@@ -1255,7 +1233,7 @@ footer {
 <!-- NAV -->
 <nav id="navbar">
   <a href="#top" class="nav-logo">
-    <img src="assets/logo.png" alt="Sourabh Malage Logo" style="height: 44px; width: auto; display: block;">
+    <img src="assets/logo.png" alt="Sourabh Malage Logo" style="height: 64px; width: auto; display: block;">
   </a>
   <div class="nav-right">
     <ul class="nav-links">
@@ -1393,7 +1371,7 @@ footer {
     <p class="ach-intro anim">Real campaign results, ad dashboards, and content work — not just claims. Click any screenshot to view in detail.</p>
 
     <!-- Tabs -->
-    <div class="ach-tabs anim anim-d1">
+    <div class="ach-tabs">
       <button class="ach-tab active" data-tab="ads">📈 Ad Campaigns</button>
       <button class="ach-tab" data-tab="seo">🔍 SEO Results</button>
       <button class="ach-tab" data-tab="social">📱 Social Media</button>
@@ -1692,163 +1670,63 @@ footer {
     </div>
     <div class="tools-grid anim anim-d1">
 
-      <!-- Google Ads -->
       <div class="tool-item">
-        <div class="tool-logo-svg">
-          <svg width="44" height="44" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-            <path d="M14.4 30.6L5.6 15.4A4 4 0 0112.5 11l8.8 15.2z" fill="#FBBC04"/>
-            <path d="M33.6 30.6l8.8-15.2A4 4 0 0135.5 11l-8.8 15.2z" fill="#4285F4"/>
-            <circle cx="24" cy="36" r="5.5" fill="#34A853"/>
-            <circle cx="8.5" cy="15.5" r="5.5" fill="#EA4335"/>
-            <circle cx="39.5" cy="15.5" r="5.5" fill="#EA4335"/>
-          </svg>
-        </div>
+        <div class="tool-logo-svg"><img src="assets/google_ads.png" alt="Google Ads" style="width:44px;height:44px;object-fit:contain;"></div>
         <span class="tool-name">Google Ads</span>
       </div>
 
-      <!-- Meta Ads -->
       <div class="tool-item">
-        <div class="tool-logo-svg">
-          <svg width="44" height="44" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <linearGradient id="metaGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" style="stop-color:#0082fb"/>
-                <stop offset="100%" style="stop-color:#0866ff"/>
-              </linearGradient>
-            </defs>
-            <path d="M6 24c0-4.5 1.8-8 4.5-10C12.7 12.2 15.5 12 18 13.5c2 1.1 3.5 3 5 5.5 1 1.7 2 4 3 6.5 1-2.5 2-4.8 3-6.5 1.5-2.5 3-4.4 5-5.5 2.5-1.5 5.3-1.3 7.5.5C44.2 16 46 19.5 46 24c0 4.2-1.5 7.5-4 9.5-2 1.6-4.5 2-6.5.5-1.5-1-2.5-2.8-4-5.5L30 25.5l-3-5c-.5-.8-1-1.5-1.5-2l-1.5 2-3 5-1.5 3c-1.5 2.7-2.5 4.5-4 5.5-2 1.5-4.5 1.1-6.5-.5C7.5 31.5 6 28.2 6 24z" fill="url(#metaGrad)"/>
-          </svg>
-        </div>
+        <div class="tool-logo-svg"><img src="assets/meta_ads.png" alt="Meta Ads" style="width:44px;height:44px;object-fit:contain;"></div>
         <span class="tool-name">Meta Ads</span>
       </div>
 
-      <!-- Google Analytics 4 -->
       <div class="tool-item">
-        <div class="tool-logo-svg">
-          <svg width="44" height="44" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-            <rect x="30" y="10" width="10" height="28" rx="5" fill="#F9AB00"/>
-            <rect x="19" y="22" width="10" height="16" rx="5" fill="#E37400" opacity="0.85"/>
-            <circle cx="13" cy="35" r="5" fill="#E37400"/>
-          </svg>
-        </div>
+        <div class="tool-logo-svg"><img src="assets/google_analytics.png" alt="Google Analytics 4" style="width:44px;height:44px;object-fit:contain;"></div>
         <span class="tool-name">Google Analytics 4</span>
       </div>
 
-      <!-- Google Tag Manager -->
       <div class="tool-item">
-        <div class="tool-logo-svg">
-          <svg width="44" height="44" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-            <path d="M24 6L6 24l18 18 18-18L24 6z" fill="none" stroke="#4285F4" stroke-width="3"/>
-            <path d="M24 14l-10 10 10 10 10-10-10-10z" fill="#4285F4"/>
-            <path d="M24 18v12M18 24h12" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
-          </svg>
-        </div>
+        <div class="tool-logo-svg"><img src="assets/google_tag_manager.png" alt="Google Tag Manager" style="width:44px;height:44px;object-fit:contain;"></div>
         <span class="tool-name">Google Tag Manager</span>
       </div>
 
-      <!-- Google Search Console -->
       <div class="tool-item">
-        <div class="tool-logo-svg">
-          <svg width="44" height="44" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="22" cy="22" r="13" fill="none" stroke="#4285F4" stroke-width="4"/>
-            <line x1="31" y1="31" x2="42" y2="42" stroke="#34A853" stroke-width="4" stroke-linecap="round"/>
-            <path d="M16 22a6 6 0 016-6" stroke="#FBBC04" stroke-width="3" stroke-linecap="round" fill="none"/>
-          </svg>
-        </div>
+        <div class="tool-logo-svg"><img src="assets/search_console.png" alt="Search Console" style="width:44px;height:44px;object-fit:contain;"></div>
         <span class="tool-name">Search Console</span>
       </div>
 
-      <!-- Facebook Pixel -->
       <div class="tool-item">
-        <div class="tool-logo-svg">
-          <svg width="44" height="44" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-            <rect width="48" height="48" rx="10" fill="#1877F2"/>
-            <path d="M32 24h-5v-3c0-1.5.7-2 2-2h3v-5h-4c-4.5 0-6 3-6 6v4h-4v5h4v13h5V29h4l1-5z" fill="white"/>
-          </svg>
-        </div>
+        <div class="tool-logo-svg"><img src="assets/facebook_pixel.png" alt="Facebook Pixel" style="width:44px;height:44px;object-fit:contain;"></div>
         <span class="tool-name">Facebook Pixel</span>
       </div>
 
-      <!-- Conversion API -->
       <div class="tool-item">
-        <div class="tool-logo-svg">
-          <svg width="44" height="44" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-            <rect width="48" height="48" rx="10" fill="#0866FF"/>
-            <text x="24" y="30" text-anchor="middle" font-size="13" font-weight="bold" font-family="monospace" fill="white">CAPI</text>
-            <path d="M14 20h6M28 20h6M24 14v6M24 28v6" stroke="white" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
-          </svg>
-        </div>
+        <div class="tool-logo-svg"><img src="assets/conversion_api.png" alt="Conversion API" style="width:44px;height:44px;object-fit:contain;"></div>
         <span class="tool-name">Conversion API</span>
       </div>
 
-      <!-- SEMrush -->
       <div class="tool-item">
-        <div class="tool-logo-svg">
-          <svg width="44" height="44" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-            <rect width="48" height="48" rx="8" fill="#FF6B2B"/>
-            <path d="M12 34l8-14 5 8 5-8 6 14" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-            <circle cx="36" cy="14" r="3" fill="white"/>
-          </svg>
-        </div>
+        <div class="tool-logo-svg"><img src="assets/semrush.png" alt="SEMrush" style="width:44px;height:44px;object-fit:contain;"></div>
         <span class="tool-name">SEMrush</span>
       </div>
 
-      <!-- WordPress -->
       <div class="tool-item">
-        <div class="tool-logo-svg">
-          <svg width="44" height="44" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="24" cy="24" r="20" fill="#21759B"/>
-            <circle cx="24" cy="24" r="20" fill="none" stroke="#21759B" stroke-width="2"/>
-            <path d="M7 24C7 15 13 7.5 21.5 7c-3 4-4.5 8.5-4.5 13.5L24 39C14.5 38 7 32 7 24zM30 8.5c3 1.5 5.5 4 7 7l-7.5 21.5C33.5 35 41 30 41 24c0-7-4.5-13-11-15.5zM22 8c1-.1 1.5-.1 2-.1 1 0 2 .1 3 .2L22 26.5 16 10.5C17.9 9 19.9 8.2 22 8zM20 28.5l4.5-12.5 4.5 12.5-4.5 2.5-4.5-2.5z" fill="white"/>
-          </svg>
-        </div>
+        <div class="tool-logo-svg"><img src="assets/wordpress.png" alt="WordPress" style="width:44px;height:44px;object-fit:contain;"></div>
         <span class="tool-name">WordPress</span>
       </div>
 
-      <!-- Shopify -->
       <div class="tool-item">
-        <div class="tool-logo-svg">
-          <svg width="44" height="44" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-            <path d="M38.5 11.5c0 0-1-.1-2.5-.3-.2-1.5-1-5.5-4-5.5-.1 0-.3 0-.4.1-.5-.7-1.2-1-1.8-1-4.5 0-6.7 5.6-7.4 8.5-1.8.6-3 .9-3.1.9-1 .3-1 .3-1.1 1.2L17 36l19 3.5L42 34l-3.5-22.5zM31 6.5c.3 0 .5.1.8.3-2 1-4 3.5-4.8 8.5l-5.5 1.7C22.2 13 24 6.5 31 6.5zM27.5 36H27l-5-1.5 1.5-8.5h5.5L28 36h-.5zM29 25.5h-6l1.5-7.5 3-1 2 .5-0.5 8z" fill="#96BF48"/>
-            <path d="M36 12c0 0-4.5-.7-5-.8l-1 25L42 34 36 12z" fill="#5E8E3E"/>
-          </svg>
-        </div>
+        <div class="tool-logo-svg"><img src="assets/shopify.png" alt="Shopify" style="width:44px;height:44px;object-fit:contain;"></div>
         <span class="tool-name">Shopify</span>
       </div>
 
-      <!-- WhatsApp -->
       <div class="tool-item">
-        <div class="tool-logo-svg">
-          <svg width="44" height="44" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="24" cy="24" r="20" fill="#25D366"/>
-            <path d="M34 29.5c-.5-1-3-2-3.5-2.5-.5-.3-1-.3-1.3.2l-1.5 2c-.3.4-.7.5-1.1.3-2-1-5.5-4-7-7-.2-.4-.1-.8.2-1l1.5-1.5c.4-.4.5-.9.2-1.3L19 14.5c-.5-.8-1-.7-1.5-.5-.5.2-3 1-3 4 0 3 2.5 6.5 6 9.5 3.5 3 7.5 5 10.5 5 2.5 0 3.5-1.5 4-2.5.3-.8.3-1.7-.5-2z" fill="white"/>
-          </svg>
-        </div>
+        <div class="tool-logo-svg"><img src="assets/whatsapp.png" alt="WhatsApp Business API" style="width:44px;height:44px;object-fit:contain;"></div>
         <span class="tool-name">WhatsApp Business API</span>
       </div>
 
-      <!-- AI Tools -->
       <div class="tool-item">
-        <div class="tool-logo-svg">
-          <svg width="44" height="44" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <linearGradient id="aiGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" style="stop-color:#7C3AED"/>
-                <stop offset="100%" style="stop-color:#EC4899"/>
-              </linearGradient>
-            </defs>
-            <rect width="48" height="48" rx="10" fill="url(#aiGrad)"/>
-            <circle cx="24" cy="24" r="6" fill="white" opacity="0.9"/>
-            <circle cx="24" cy="10" r="3" fill="white" opacity="0.6"/>
-            <circle cx="24" cy="38" r="3" fill="white" opacity="0.6"/>
-            <circle cx="10" cy="24" r="3" fill="white" opacity="0.6"/>
-            <circle cx="38" cy="24" r="3" fill="white" opacity="0.6"/>
-            <line x1="24" y1="13" x2="24" y2="18" stroke="white" stroke-width="1.5" opacity="0.4"/>
-            <line x1="24" y1="30" x2="24" y2="35" stroke="white" stroke-width="1.5" opacity="0.4"/>
-            <line x1="13" y1="24" x2="18" y2="24" stroke="white" stroke-width="1.5" opacity="0.4"/>
-            <line x1="30" y1="24" x2="35" y2="24" stroke="white" stroke-width="1.5" opacity="0.4"/>
-          </svg>
-        </div>
+        <div class="tool-logo-svg"><img src="assets/ai_tools.png" alt="AI Tools" style="width:44px;height:44px;object-fit:contain;"></div>
         <span class="tool-name">AI Tools</span>
       </div>
 
