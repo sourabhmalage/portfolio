@@ -905,7 +905,7 @@ footer {
   background: var(--card);
   border: 1px solid var(--border);
   margin-bottom: 32px;
-  cursor: auto;
+  cursor: pointer;
   transition: box-shadow 0.3s, border-color 0.3s;
   overflow: hidden;
 }
@@ -991,6 +991,8 @@ footer {
   opacity: 0;
   transition: opacity 0.3s;
   backdrop-filter: blur(2px);
+  pointer-events: none;
+  cursor: pointer;
 }
 .fullbanner-card:hover .fullbanner-overlay { opacity: 1; }
 .fullbanner-overlay .gallery-zoom-icon {
@@ -1790,16 +1792,8 @@ footer {
   <div class="lightbox-caption" id="lightbox-caption"></div>
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-  // Custom cursor
-  const cursor = document.getElementById('cursor');
-  const ring = document.getElementById('cursorRing');
-  document.addEventListener('mousemove', e => {
-    cursor.style.left = e.clientX + 'px';
-    cursor.style.top = e.clientY + 'px';
-    ring.style.left = e.clientX + 'px';
-    ring.style.top = e.clientY + 'px';
-  });
+<script>
+document.addEventListener('DOMContentLoaded', function() {
 
   // Nav scroll
   const navbar = document.getElementById('navbar');
@@ -1807,78 +1801,82 @@ footer {
     navbar.classList.toggle('scrolled', window.scrollY > 40);
   });
 
-  // Scroll reveal — fixed to ensure all sections animate in reliably
+  // Scroll reveal
   const anims = document.querySelectorAll('.anim');
   const obs = new IntersectionObserver(entries => {
     entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('in');
-        obs.unobserve(e.target);
-      }
+      if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); }
     });
-  }, { threshold: 0, rootMargin: '0px 0px -40px 0px' });
+  }, { threshold: 0 });
   anims.forEach(el => obs.observe(el));
-  // Immediately show any .anim elements already visible on page load
   setTimeout(() => {
     anims.forEach(el => {
-      const rect = el.getBoundingClientRect();
-      if (rect.top < window.innerHeight) el.classList.add('in');
+      if (el.getBoundingClientRect().top < window.innerHeight) el.classList.add('in');
     });
-  }, 100);
+  }, 50);
 
-  // Achievement tabs
-  document.querySelectorAll('.ach-tab').forEach(tab => {
-    tab.addEventListener('click', () => {
-      document.querySelectorAll('.ach-tab').forEach(t => t.classList.remove('active'));
-      document.querySelectorAll('.ach-panel').forEach(p => p.classList.remove('active'));
-      tab.classList.add('active');
-      document.getElementById('tab-' + tab.dataset.tab).classList.add('active');
+  // Achievement tabs — robust click handler
+  document.querySelectorAll('.ach-tab').forEach(function(tab) {
+    tab.addEventListener('click', function() {
+      var tabId = this.getAttribute('data-tab');
+      // Remove active from all tabs and panels
+      document.querySelectorAll('.ach-tab').forEach(function(t) { t.classList.remove('active'); });
+      document.querySelectorAll('.ach-panel').forEach(function(p) { p.classList.remove('active'); });
+      // Add active to clicked tab and matching panel
+      this.classList.add('active');
+      var panel = document.getElementById('tab-' + tabId);
+      if (panel) panel.classList.add('active');
     });
   });
 
-  // Iframe error detection — show fallback if site blocks embedding
-  document.querySelectorAll('.iframe-body iframe').forEach(iframe => {
-    iframe.addEventListener('error', () => {
-      iframe.style.display = 'none';
-      iframe.nextElementSibling.style.display = 'none'; // hide blocker
-      iframe.nextElementSibling.nextElementSibling.style.display = 'flex'; // show error
+  // Image error handler
+  document.querySelectorAll('.fullbanner-img-wrap img').forEach(function(img) {
+    img.addEventListener('error', function() {
+      this.style.display = 'none';
+      var ph = this.nextElementSibling;
+      if (ph && ph.classList.contains('gallery-placeholder')) ph.style.display = 'flex';
     });
-    // Also detect X-Frame-Options block via load timeout
-    const timer = setTimeout(() => {
+  });
+
+  // Iframe error detection
+  document.querySelectorAll('.iframe-body iframe').forEach(function(iframe) {
+    var timer = setTimeout(function() {
       try {
-        const doc = iframe.contentDocument || iframe.contentWindow.document;
-        if (!doc || doc.readyState === 'complete' && !doc.body.innerHTML) {
+        var doc = iframe.contentDocument || iframe.contentWindow.document;
+        if (!doc || (doc.readyState === 'complete' && !doc.body.innerHTML)) {
           iframe.style.display = 'none';
-          const blocker = iframe.nextElementSibling;
-          const error = blocker.nextElementSibling;
+          var blocker = iframe.nextElementSibling;
+          var error = blocker ? blocker.nextElementSibling : null;
           if (blocker) blocker.style.display = 'none';
           if (error) error.style.display = 'flex';
         }
-      } catch(e) {
-        // Cross-origin block — site loaded but we can't check; that's fine, iframe shows
-      }
+      } catch(e) {}
     }, 5000);
-    iframe.addEventListener('load', () => clearTimeout(timer));
-  });
-  // Simple direct image load — .png files in assets/
-  document.querySelectorAll('.fullbanner-img-wrap img').forEach(img => {
-    img.addEventListener('error', function() {
-      this.style.display = 'none';
-      const ph = this.nextElementSibling;
-      if (ph && ph.classList.contains('gallery-placeholder')) {
-        ph.style.display = 'flex';
-        const hint = ph.querySelector('.gallery-placeholder-hint');
-        if (hint) hint.innerHTML = '❌ Cannot load: <code style="font-size:11px;background:#eee;padding:2px 6px;border-radius:3px">' + this.src + '</code>';
-      }
-    });
+    iframe.addEventListener('load', function() { clearTimeout(timer); });
   });
 
-  function openLightbox(src, caption) {
-    const lb = document.getElementById('lightbox');
-    const img = document.getElementById('lightbox-img');
-    const cap = document.getElementById('lightbox-caption');
-    img.src = src;
-    cap.textContent = caption;
-    lb.classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
+}); // end DOMContentLoaded
+
+function openLightbox(src, caption) {
+  var lb = document.getElementById('lightbox');
+  var img = document.getElementById('lightbox-img');
+  var cap = document.getElementById('lightbox-caption');
+  if (!lb || !img) return;
+  img.src = src;
+  if (cap) cap.textContent = caption || '';
+  lb.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() {
+  var lb = document.getElementById('lightbox');
+  if (lb) lb.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeLightbox();
+});
+</script>
+</body>
+</html>
